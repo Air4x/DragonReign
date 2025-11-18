@@ -1,1 +1,12 @@
 #+TITLE: DragonReign, a guix home configuration
+
+DragonReign is an attempt to recreate my home environment with guix.
+This is done for a bunch of reasons:
+- Stability :: even though I don't change my config files a lot having a way to rollback changes is quite useful
+- Reproducibility :: I own two laptop, a infinitybook pro 14 by Tuxedo and a PineBook Pro, even though they are quite different
+  in hardware I'd like to be able to have the same environment (with few exception) on both
+
+
+(WIP)
+* List of programs
+* Description
