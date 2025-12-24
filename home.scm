@@ -97,12 +97,12 @@
 		       syncthing)))
 
 (home-environment
- (packages (append base-packages
-		   emacs-stuff
-		   music
-		   scripting
-		   programming
-		   desktop))
+ (packages (append ,@base-packages
+		   ,@emacs-stuff
+		   ,@music
+		   ,@scripting
+		   ,@programming
+		   ,@desktop))
  (services
   (list
    (service home-zsh-service-type))))
