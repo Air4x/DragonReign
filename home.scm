@@ -52,7 +52,7 @@
 				"emacs-yasnippet"
 				"emacs-yasnippet-snippets"
 				"emacs-paredit"
-				"emacs-rainbow-delimeters"
+				"emacs-rainbow-delimiters"
 				"emacs-geiser"
 				"emacs-geiser-guile"
 				"emacs-corfu"
