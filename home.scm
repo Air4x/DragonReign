@@ -104,6 +104,5 @@
 		   programming
 		   desktop))
  (services
-  (append (list
-           (service home-zsh-service-type))
-          %base-home-services)))
+  (list
+   (service home-zsh-service-type))))
