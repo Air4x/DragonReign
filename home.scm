@@ -2,6 +2,7 @@
              (gnu home services)
              (gnu home services shells)
              (gnu services)
+	     (gnu packages)
              (gnu packages admin)
              (gnu packages base)	     
              (gnu packages perl)
