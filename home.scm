@@ -17,84 +17,84 @@
 
 
 (define base-packages
-  '(coreutils
-    binutils
-    util-linux
-    htop
-    acpi))
+  (map specification->package '("coreutils"
+				"binutils"
+				"util-linux"
+				"htop"
+				"acpi")))
 
 (define emacs-stuff
-  '(emacs-pgtk
-    emacs-telega
-    emacs-raku-mode
-    emacs-slime
-    emacs-all-the-icons
-    emacs-ligature
-    emacs-mixed-pitch
-    emacs-consult
-    emacs-vertico
-    emacs-marginalia
-    emacs-orderless
-    emacs-embark
-    emacs-org
-    emacs-jinx
-    emacs-olivetti
-    emacs-org-roam
-    emacs-org-contacts
-    emacs-gnuplot
-    emacs-org-bullets
-    emacs-org-appear
-    emacs-htmlize
-    emacs-pdf-tools
-    emacs-org-tree-slide
-    emacs-eat
-    emacs-yasnippet
-    emacs-yasnippet-snippets
-    emacs-paredit
-    emacs-rainbow-delimeters
-    emacs-geiser
-    emacs-geiser-guile
-    emacs-corfu
-    emacs-cape
-    emacs-magit
-    emacs-auctex
-    emacs-elpher))
+  (map specification->package '("emacs-pgtk"
+				"emacs-telega"
+				"emacs-raku-mode"
+				"emacs-slime"
+				"emacs-all-the-icons"
+				"emacs-ligature"
+				"emacs-mixed-pitch"
+				"emacs-consult"
+				"emacs-vertico"
+				"emacs-marginalia"
+				"emacs-orderless"
+				"emacs-embark"
+				"emacs-org"
+				"emacs-jinx"
+				"emacs-olivetti"
+				"emacs-org-roam"
+				"emacs-org-contacts"
+				"emacs-gnuplot"
+				"emacs-org-bullets"
+				"emacs-org-appear"
+				"emacs-htmlize"
+				"emacs-pdf-tools"
+				"emacs-org-tree-slide"
+				"emacs-eat"
+				"emacs-yasnippet"
+				"emacs-yasnippet-snippets"
+				"emacs-paredit"
+				"emacs-rainbow-delimeters"
+				"emacs-geiser"
+				"emacs-geiser-guile"
+				"emacs-corfu"
+				"emacs-cape"
+				"emacs-magit"
+				"emacs-auctex"
+				"emacs-elpher")))
 
 (define fonts
-  '(font-fira-code))
+  (map specification->package '("font-fira-code")))
 
 (define scripting
-  '(rakudo
-    perl
-    zef
-    cpan))
+  (map specification->package'("rakudo"
+			       "perl"
+			       "zef"
+			       "cpan")))
 
 (define programming
-  '(sbcl
-    guile))
+ (map specification->package '("sbcl"
+			       "guile")))
 
 (define music
-  '(mpd
-    mpd-mpc
-    ncmpcpp))
+ (map specification->package '("mpd"
+			       "mpd-mpc"
+			       "ncmpcpp")))
 
 (define sway-stuff
-  '(sway
-    swayidle
-    swaylock
-    swaybg
-    waybar))
+  '("sway"
+    "swayidle"
+    "swaylock"
+    "swaybg"
+    "waybar"))
 
 
 (define desktop
-  (append sway-stuff '(tofi
-		       cliphist
-		       wl-clipboard
-		       gammastep
-		       grim
-		       slurp
-		       dunst
-		       syncthing)))
+  (map specification->package (append sway-stuff '("tofi"
+						   "cliphist"
+						   "wl-clipboard"
+						   "gammastep"
+						   "grim"
+						   "slurp"
+						   "dunst"
+						   "syncthing"))))
 (define pkgs
   `(,@base-packages
     ,@emacs-stuff  
