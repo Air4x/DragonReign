@@ -95,14 +95,17 @@
 		       slurp
 		       dunst
 		       syncthing)))
+(define pkgs
+  `(,@base-packages
+    ,@emacs-stuff  
+    ,@music        
+    ,@scripting    
+    ,@programming  
+    ,@desktop))
+
 
 (home-environment
- (packages (append ,@base-packages
-		   ,@emacs-stuff
-		   ,@music
-		   ,@scripting
-		   ,@programming
-		   ,@desktop))
+ (packages pkgs)
  (services
   (list
    (service home-zsh-service-type))))
