@@ -44,7 +44,6 @@
 				"rakudo"
 				"perl"
 				"perl6-zef"
-				"cpan"
 				"emacs-pgtk"
 				"emacs-telega"
 				"emacs-raku-mode"
