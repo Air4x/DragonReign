@@ -67,7 +67,7 @@
 (define scripting
   (map specification->package'("rakudo"
 			       "perl"
-			       "zef"
+			       "perl6-zef"
 			       "cpan")))
 
 (define programming
