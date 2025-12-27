@@ -16,16 +16,36 @@
 	     (gnu packages syncthing)
              (guix gexp))
 
-
-(define base-packages
+(define pkgs
   (map specification->package '("coreutils"
 				"binutils"
 				"util-linux"
+				"font-fira-code"
 				"htop"
-				"acpi")))
-
-(define emacs-stuff
-  (map specification->package '("emacs-pgtk"
+				"acpi"
+				"sbcl"
+				"guile"
+				"tofi"
+				"cliphist"
+				"wl-clipboard"
+				"gammastep"
+				"grim"
+				"slurp"
+				"dunst"
+				"syncthing"
+				"sway"
+				"swayidle"
+				"swaylock"
+				"swaybg"
+				"waybar"
+				"mpd"
+				"mpd-mpc"
+				"ncmpcpp"
+				"rakudo"
+				"perl"
+				"perl6-zef"
+				"cpan"
+				"emacs-pgtk"
 				"emacs-telega"
 				"emacs-raku-mode"
 				"emacs-slime"
@@ -60,49 +80,6 @@
 				"emacs-magit"
 				"emacs-auctex"
 				"emacs-elpher")))
-
-(define fonts
-  (map specification->package '("font-fira-code")))
-
-(define scripting
-  (map specification->package'("rakudo"
-			       "perl"
-			       "perl6-zef"
-			       "cpan")))
-
-(define programming
- (map specification->package '("sbcl"
-			       "guile")))
-
-(define music
- (map specification->package '("mpd"
-			       "mpd-mpc"
-			       "ncmpcpp")))
-
-(define sway-stuff
-  '("sway"
-    "swayidle"
-    "swaylock"
-    "swaybg"
-    "waybar"))
-
-
-(define desktop
-  (map specification->package (append sway-stuff '("tofi"
-						   "cliphist"
-						   "wl-clipboard"
-						   "gammastep"
-						   "grim"
-						   "slurp"
-						   "dunst"
-						   "syncthing"))))
-(define pkgs
-  `(,@base-packages
-    ,@emacs-stuff  
-    ,@music        
-    ,@scripting    
-    ,@programming  
-    ,@desktop))
 
 
 (home-environment
