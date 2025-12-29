@@ -38,6 +38,7 @@
 				"swaylock"
 				"swaybg"
 				"waybar"
+				"foot"
 				"mpd"
 				"mpd-mpc"
 				"ncmpcpp"
