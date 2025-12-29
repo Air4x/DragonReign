@@ -85,4 +85,4 @@
  (packages pkgs)
  (services
   (list
-   (service home-zsh-service-type))))
+   (service home-bash-service-type))))
