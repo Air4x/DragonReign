@@ -85,4 +85,6 @@
  (packages pkgs)
  (services
   (list
-   (service home-bash-service-type))))
+   (service home-bash-service-type
+	    (home-bash-configuration
+	     (guix-defaults? #t))))))
