@@ -17,10 +17,7 @@
              (guix gexp))
 
 (define pkgs
-  (map specification->package '("coreutils"
-				"binutils"
-				"util-linux"
-				"font-fira-code"
+  (map specification->package '("font-fira-code"
 				"htop"
 				"acpi"
 				"sbcl"
