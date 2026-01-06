@@ -87,4 +87,4 @@
 	    (home-bash-configuration
 	     (guix-defaults? #t)))
    (service home-files-service-type
-	    '(("sway/config" ,(local-file "sway/config")))))))
+	    `(("sway/config" ,(local-file "sway/config")))))))
