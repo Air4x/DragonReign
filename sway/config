@@ -287,7 +287,6 @@ exec dbus-update-activation-enviroment --systemd WAYLAND_DISPLAY XDG_CURRENT_DES
 exec wl-paste --type text --watch cliphist store
 exec swaybg -o HDMI-A-2 -i ~/Immagini/red_supernova_dragon.jpg -m fill
 exec swaybg -o eDP-1 -i ~/Immagini/borrelend.jpeg -m fill
-exec dunst
 exec gammastep-indicator
 
 include /etc/sway/config.d/*
