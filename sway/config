@@ -40,10 +40,10 @@ output HDMI-A-2 resolution 1920x1080 position 0,0
 #
 # Example configuration:
 #
- exec swayidle -w \
-          timeout 300 'swaylock -f -c 000000' \
-          timeout 600 'swaymsg "output * power off"' resume 'swaymsg "output * power on"' \
-          before-sleep 'swaylock -f -c 000000'
+# exec swayidle -w \
+#          timeout 300 'swaylock -f -c 000000' \
+#          timeout 600 'swaymsg "output * power off"' resume 'swaymsg "output * power on"' \
+#          before-sleep 'swaylock -f -c 000000'
 #
 # This will lock your screen after 300 seconds of inactivity, then turn off
 # your displays after another 300 seconds, and turn your screens back on when
@@ -71,6 +71,11 @@ input "1739:0:Synaptics_TM3175-002" {
 
 input "1:1:AT_Translated_Set_2_keyboard" {
 	xkb_layout it
+	xkb_options ctrl:nocaps
+}
+
+input "10473:12645:SmartCloud_galaxy_65" {
+        xkb_layout us(intl)
 	xkb_options ctrl:nocaps
 }
 
