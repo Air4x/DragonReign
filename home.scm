@@ -1,6 +1,8 @@
-(use-modules (gnu home)
+(use-modules (gnu)
+	     (gnu home)
              (gnu home services)
              (gnu home services shells)
+	     (gnu home services shepherd)
              (gnu services)
 	     (gnu packages)
              (gnu packages admin)
@@ -14,6 +16,7 @@
 	     (gnu packages fonts)
 	     (gnu packages wm)
 	     (gnu packages syncthing)
+	     (gnu home services syncthing)
              (guix gexp))
 
 (define pkgs
@@ -27,6 +30,8 @@
 				"wl-clipboard"
 				"grim"
 				"slurp"
+				"libadwaita"
+				"hicolor-icon-theme"
 				"dunst"
 				"syncthing"
 				"sway"
@@ -76,6 +81,59 @@
 				"emacs-auctex"
 				"emacs-elpher")))
 
+;; MPD
+(define (home-mpd-service config)
+  (list (shepherd-service
+	 (provision '(mpd))
+	 (documentation "Run mpd the music player deamon")
+	 (start #~(make-system-constructor "mpd"))
+	 (stop #~(make-system-destructor "mpd" "--kill")))))
+
+(define home-mpd-service-type
+  (service-type
+   (name 'mpd)
+   (default-value '())
+   (extensions (list (service-extension
+		      home-shepherd-service-type
+		      home-mpd-service)))
+   (description "Mpd deamon")))
+
+
+
+;; dunst
+(define (home-dunst-service config)
+  (list (shepherd-service
+	 (provision '(dunst))
+	 (documentation "Start dunst as a notification manager")
+	 (start #~(make-system-constructor "dunst"))
+	 (stop #~(make-kill-destructor)))))
+
+(define home-dunst-service-type
+  (service-type
+   (name 'dunst)
+   (default-value '())
+   (extensions (list (service-extension
+		      home-shepherd-service-type
+		      home-dunst-service)))
+   (description "Dunst notification manager")))
+
+
+;; emacs server
+(define (home-emacs-service config)
+  (list (shepherd-service
+	 (provision '(emacs))
+	 (documentation "Start emacs as a daemon")
+	 (start #~(make-system-constructor "emacs" "--fg-daemon"))
+	 (stop #~(make-kill-destructor)))))
+
+(define home-emacs-service-type
+  (service-type
+   (name 'emacs)
+   (default-value '())
+   (extensions (list (service-extension
+		     home-shepherd-service-type
+		     home-emacs-service)))
+   (description "Emacs as a daemon to use with emacsclient")))
 
 (home-environment
  (packages pkgs)
@@ -85,4 +143,8 @@
 	    (home-bash-configuration
 	     (guix-defaults? #t)))
    (service home-files-service-type
-	    `((".config/sway/config" ,(local-file "sway/config")))))))
+	    `((".config/sway/config" ,(local-file "sway/config"))))
+   (service home-syncthing-service-type)
+   (service home-mpd-service-type)
+   (service home-dunst-service-type)
+   (service home-emacs-service-type))))
