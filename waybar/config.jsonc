@@ -1,0 +1,47 @@
+{
+	"id": "bar-0",
+	"ipc": true,
+	"layer": "top",
+	"position": "top",
+	"modules-left": ["sway/workspaces"],
+	"modules-center": ["mpd"],
+	"modules-right": ["network","pulseaudio","battery", "clock", "tray"],
+	"battery": {
+		"format": "{capacity}% {icon}",
+			"format-icons": ["", "", "", "", ""]
+	},
+	"clock": {
+		"format-alt": "{:%a, %d. %b  %H:%M}"
+	},
+	"mpd":{
+		"format":"{artist}: {title}",
+		"justify":"center",
+		"state-icons":{
+			"playing": "",
+			"paused": ""
+		},
+		"on-click": "mpc toggle"
+	},
+	"pulseaudio":{
+		"format": "{icon} {volume}%",
+		"format-muted": "muted",
+		"format-bluetooth": "󰂯 {volume}%",
+		"format-icons": {
+			"headphones": "",
+			"handsfree": "",
+			"headset": "",
+			"phone": "",
+			"portable": "",
+			"car": "",
+			"default": ["🔈️" , "🔉", "🔊"],
+		},
+		"on-click": "pavucontrol"
+	},
+	"network": {
+		   "format-ethernet": "󰈀",
+		   "format-wifi": "  {essid}",
+		   "format-disconnected": "󰜺",
+		   "format-disabled": "󰀝",
+	}
+}
+
