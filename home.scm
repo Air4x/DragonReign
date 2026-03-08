@@ -25,14 +25,12 @@
 				"tofi"
 				"cliphist"
 				"wl-clipboard"
-				"gammastep"
 				"grim"
 				"slurp"
 				"dunst"
 				"syncthing"
 				"sway"
 				"swayidle"
-				"swaylock"
 				"swaybg"
 				"waybar"
 				"foot"
@@ -87,4 +85,4 @@
 	    (home-bash-configuration
 	     (guix-defaults? #t)))
    (service home-files-service-type
-	    `(("sway/config" ,(local-file "sway/config")))))))
+	    `((".config/sway/config" ,(local-file "sway/config")))))))
