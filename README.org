@@ -10,3 +10,6 @@ This is done for a bunch of reasons:
 (WIP)
 * List of programs
 * Description
+* Credits
+All the wallpapers are from 不想当画家的Leo ([[https://www.pixiv.net/en/users/14103812][pixiv page]]) check them out
+
