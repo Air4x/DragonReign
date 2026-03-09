@@ -3,6 +3,8 @@
              (gnu home services)
              (gnu home services shells)
 	     (gnu home services shepherd)
+	     (gnu home services sound)
+	     (gnu home services desktop)
              (gnu services)
 	     (gnu packages)
              (gnu packages admin)
@@ -141,7 +143,38 @@
 	      (".config/waybar/config.jsonc" ,(local-file "waybar/config.jsonc"))
 	      (".config/waybar/style.css" ,(local-file "waybar/style.css"))
 	      ("Immagini/wallpaper.jpg" ,(local-file "ultimate-blue-eyes.jpg"))))
+   (simple-service 'variant-packages-service
+                   home-channels-service-type
+                   (list
+                    (channel
+		     (name 'nonguix)
+		     (url "https://gitlab.com/nonguix/nonguix")
+		     ;; Enable signature verification:
+		     (introduction
+		      (make-channel-introduction
+		       "897c1a470da759236cc11798f4e0a5f7d4d59fbc"
+		       (openpgp-fingerprint
+			"2A39 3FFF 68F4 EF7A 3D29  12AF 6F51 20A0 22FB B2D5"))))
+		    (channel
+		     (name 'clocktower)
+		     (url "https://codeberg.org/TohsakaTypeclass/clocktower")
+		     (branch "master")
+		     (introduction
+		      (make-channel-introduction
+		       "9fb086fa9ee955c7daf755a5b114eedc030de99d"
+		       (openpgp-fingerprint
+			"4B1E F810 76ED 1A25 D15C CB18 4572 A777 FF18 DBCC"))))
+		    (channel
+		     (name 'saayix)
+		     (branch "main")
+		     (url "https://codeberg.org/look/saayix")
+		     (introduction
+		      (make-channel-introduction
+		       "12540f593092e9a177eb8a974a57bb4892327752"
+		       (openpgp-fingerprint
+			"3FFA 7335 973E 0A49 47FC  0A8C 38D5 96BE 07D3 34AB"))))))
+   (service home-dbus-service-type)
    (service home-syncthing-service-type)
    (service home-mpd-service-type)
-   (service home-dunst-service-type)
-   (service home-emacs-service-type))))
+   (service home-emacs-service-type)
+   (service home-pipewire-service-type))))
