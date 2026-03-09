@@ -21,6 +21,8 @@
 
 (define pkgs
   (map specification->package '("font-fira-code"
+				"font-nerd-fira-code"
+				"font-et-book"
 				"htop"
 				"acpi"
 				"sbcl"
