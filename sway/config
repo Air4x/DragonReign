@@ -69,14 +69,16 @@ input "1739:0:Synaptics_TM3175-002" {
       middle_emulation enabled
 }
 
+input * {
+      xkb_options ctrl:nocaps
+}
+
 input "1:1:AT_Translated_Set_2_keyboard" {
 	xkb_layout it
-	xkb_options ctrl:nocaps
 }
 
 input "10473:12645:SmartCloud_galaxy_65" {
         xkb_layout us(intl)
-	xkb_options ctrl:nocaps
 }
 
 ### Key bindings
@@ -282,11 +284,8 @@ bar {
 
 for_window [title="note-taking-image"] floating enable
 
-exec systemctl --user import-environment WAYLAND_DISPLAY XDG_CURRENT_DESKTOP
 exec dbus-update-activation-enviroment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP=sway
 exec wl-paste --type text --watch cliphist store
-exec swaybg -o HDMI-A-2 -i ~/Immagini/red_supernova_dragon.jpg -m fill
-exec swaybg -o eDP-1 -i ~/Immagini/borrelend.jpeg -m fill
-exec gammastep-indicator
+exec swaybg  -i ~/Immagini/wallpaper.jpg -m fill
 
 include /etc/sway/config.d/*
