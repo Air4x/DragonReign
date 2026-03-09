@@ -63,7 +63,7 @@ leggibilità la preferisco completamente opaca.
     (defun dr/set-font-faces ()
       (set-face-attribute 'default nil :font "FiraCode Nerd Font" :height 165)
       (set-face-attribute 'fixed-pitch nil :font "FiraCode Nerd Font" :height 165)
-      (set-face-attribute 'variable-pitch nil :font "Spectral" :height 165))
+      (set-face-attribute 'variable-pitch nil :font "ETBembo" :height 165))
 
     (if (daemonp)
         (add-hook 'server-after-make-frame-hook
