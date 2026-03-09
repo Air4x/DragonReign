@@ -17,7 +17,11 @@
 	     (gnu packages wm)
 	     (gnu packages syncthing)
 	     (gnu home services syncthing)
+	     (gnu home services guix)
+	     (saayix packages binaries)
+	     (guix channels)
              (guix gexp))
+
 
 (define pkgs
   (map specification->package '("font-fira-code"
@@ -44,6 +48,7 @@
 				"mpd"
 				"mpd-mpc"
 				"ncmpcpp"
+				"zen-browser-bin"
 				"rakudo"
 				"perl"
 				"perl6-zef"
