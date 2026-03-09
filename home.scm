@@ -18,9 +18,12 @@
 	     (gnu packages fonts)
 	     (gnu packages wm)
 	     (gnu packages syncthing)
+	     (gnu packages gnuzilla)
+	     (gnu packages telegram)
 	     (gnu home services syncthing)
 	     (gnu home services guix)
 	     (saayix packages binaries)
+	     (nongnu packages messaging)
 	     (guix channels)
              (guix gexp))
 
@@ -88,7 +91,10 @@
 				"emacs-cape"
 				"emacs-magit"
 				"emacs-auctex"
-				"emacs-elpher")))
+				"emacs-elpher"
+				"icedove-wayland"
+				"telegram-desktop"
+				"signal-desktop")))
 
 ;; MPD
 (define (home-mpd-service config)
