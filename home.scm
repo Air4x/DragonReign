@@ -102,39 +102,23 @@
 
 
 
-;; dunst
-(define (home-dunst-service config)
-  (list (shepherd-service
-	 (provision '(dunst))
-	 (documentation "Start dunst as a notification manager")
-	 (start #~(make-system-constructor "dunst"))
-	 (stop #~(make-kill-destructor)))))
-
-(define home-dunst-service-type
-  (service-type
-   (name 'dunst)
-   (default-value '())
-   (extensions (list (service-extension
-		      home-shepherd-service-type
-		      home-dunst-service)))
-   (description "Dunst notification manager")))
-
-
 ;; emacs server
 (define (home-emacs-service config)
   (list (shepherd-service
 	 (provision '(emacs))
 	 (documentation "Start emacs as a daemon")
-	 (start #~(make-system-constructor "emacs" "--fg-daemon"))
+	 (start #~(make-forkexec-constructor (list (string-append #$emacs-pgtk "/bin/emacs")
+						   "--fg-daemon"
+						   "--chdir" (getenv "HOME"))))
 	 (stop #~(make-kill-destructor)))))
 
 (define home-emacs-service-type
   (service-type
    (name 'emacs)
-   (default-value '())
+   (default-value #f)
    (extensions (list (service-extension
-		     home-shepherd-service-type
-		     home-emacs-service)))
+		      home-shepherd-service-type
+		      home-emacs-service)))
    (description "Emacs as a daemon to use with emacsclient")))
 
 (home-environment
