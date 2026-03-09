@@ -129,7 +129,13 @@
 	    (home-bash-configuration
 	     (guix-defaults? #t)))
    (service home-files-service-type
-	    `((".config/sway/config" ,(local-file "sway/config"))))
+	    `((".config/sway/config" ,(local-file "sway/config"))
+	      (".config/emacs/Air4x.org" ,(local-file "emacs/Air4x.org"))
+	      (".config/mpd/mpd.conf" ,(local-file "mpd/mpd.conf"))
+	      (".config/dunst/dunstrc" ,(local-file "dunst/dunstrc"))
+	      (".config/waybar/config.jsonc" ,(local-file "waybar/config.jsonc"))
+	      (".config/waybar/style.css" ,(local-file "waybar/style.css"))
+	      ("Immagini/wallpaper.jpg" ,(local-file "ultimate-blue-eyes.jpg"))))
    (service home-syncthing-service-type)
    (service home-mpd-service-type)
    (service home-dunst-service-type)
