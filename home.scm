@@ -94,7 +94,9 @@
 				"emacs-elpher"
 				"icedove-wayland"
 				"telegram-desktop"
-				"signal-desktop")))
+				"signal-desktop"
+				"flatpak"
+				"flatpak-xdg-utils")))
 
 ;; MPD
 (define (home-mpd-service config)
