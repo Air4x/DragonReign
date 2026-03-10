@@ -735,6 +735,7 @@ Codice vario che:
 
 #+begin_src emacs-lisp
   (setq make-backup-files nil)
+  (setq auto-save-default nil)
   (setq auto-save-file-name-transforms '((".*" "~/.cache/emacs/auto-save/" t)))
   (setq lock-file-name-transforms '((".*" "~/.cache/emacs/auto-save/" t)))
   (setq backup-directory-alist '((".*" . "~/.cache/emacs/auto-save/")))
