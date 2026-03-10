@@ -1,0 +1,1 @@
+eval -- "$(/home/mario/.guix-home/profile/bin/starship init bash --print-full-init)"

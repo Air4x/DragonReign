@@ -20,6 +20,11 @@
 	     (gnu packages syncthing)
 	     (gnu packages gnuzilla)
 	     (gnu packages telegram)
+	     (gnu packages package-management)
+	     (gnu packages freedesktop)
+	     (gnu packages terminals)
+	     (gnu packages shellutils)
+	     (gnu packages rust-apps)
 	     (gnu home services syncthing)
 	     (gnu home services guix)
 	     (saayix packages binaries)
@@ -41,6 +46,7 @@
 				"wl-clipboard"
 				"grim"
 				"slurp"
+				"eza"
 				"libadwaita"
 				"hicolor-icon-theme"
 				"dunst"
@@ -144,7 +150,12 @@
   (list
    (service home-bash-service-type
 	    (home-bash-configuration
-	     (guix-defaults? #t)))
+	     (guix-defaults? #t)
+	     (bashrc (list (local-file "bash/conf")))
+	     (aliases '(("ls" . "eza")
+			("la" . "eza -a")
+			("ll" . "eza -al")
+			("emc" . "emacsclient -nw")))))
    (service home-files-service-type
 	    `((".config/sway/config" ,(local-file "sway/config"))
 	      (".config/emacs/Air4x.org" ,(local-file "emacs/Air4x.org"))
