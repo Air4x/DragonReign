@@ -155,7 +155,8 @@
 	     (aliases '(("ls" . "eza")
 			("la" . "eza -a")
 			("ll" . "eza -al")
-			("emc" . "emacsclient -nw")))))
+			("emc" . "emacsclient -nw")))
+	     (bash-profile (list (local-file "bash/profile.conf")))))
    (service home-files-service-type
 	    `((".config/sway/config" ,(local-file "sway/config"))
 	      (".config/emacs/Air4x.org" ,(local-file "emacs/Air4x.org"))
