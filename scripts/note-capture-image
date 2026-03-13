@@ -1,0 +1,24 @@
+#!/usr/bin/env perl
+use v5.38;
+use English;
+use File::Spec;
+use Tk;
+
+my $text;
+my $base_path          = "Documenti/PKB/images/";
+my $capture_status     = `slurp | grim -g - ~/.local/share/note-taking`;
+my $image_default_name = File::Spec->rel2abs(".local/share/note-taking");
+my $mw                 = MainWindow->new;
+$mw->title("note-taking-image");
+my $entry = $mw->Entry()->pack( -side => 'top' );
+$entry->focus();
+$entry->bind(
+    '<KeyPress-Return>',
+    sub {
+        $text = $entry->get();
+        $mw->destroy;
+    }
+);
+MainLoop;
+my $new_image_name = File::Spec->rel2abs( $base_path . $text . ".png" );
+rename $image_default_name, $new_image_name;

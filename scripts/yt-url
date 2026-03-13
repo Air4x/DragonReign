@@ -1,0 +1,9 @@
+#!/usr/bin/raku
+use v6.d;
+
+my $old-url = $*IN.readchars();
+my $template = "https://www.youtube.com/watch?v=";
+my @parts = $old-url.split('/').Array();
+my $id = @parts[@parts.end()].split('?')[0];
+my $new-url = $template~$id;
+print $new-url;
