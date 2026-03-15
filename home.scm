@@ -30,6 +30,7 @@
 	     (gnu packages tex)
 	     (gnu packages qt)
 	     (gnu packages xorg)
+	     (gnu packages xdisorg)
 	     (gnu home services syncthing)
 	     (gnu home services guix)
 	     (saayix packages binaries)
@@ -46,7 +47,7 @@
 				"acpi"
 				"sbcl"
 				"guile"
-				"tofi"
+				"rofi"
 				"cliphist"
 				"wl-clipboard"
 				"grim"
