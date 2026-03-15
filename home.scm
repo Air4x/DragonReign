@@ -25,6 +25,7 @@
 	     (gnu packages terminals)
 	     (gnu packages shellutils)
 	     (gnu packages rust-apps)
+	     (gnu packages aspell)
 	     (gnu home services syncthing)
 	     (gnu home services guix)
 	     (saayix packages binaries)
@@ -100,11 +101,18 @@
 				"emacs-magit"
 				"emacs-auctex"
 				"emacs-elpher"
+				"aspell-dict-en"
+				"aspell-dict-it"
 				"icedove-wayland"
 				"telegram-desktop"
 				"signal-desktop"
 				"flatpak"
-				"flatpak-xdg-utils")))
+				"flatpak-xdg-utils"
+				"texlive-scheme-basic"
+				"texlive-collection-latexrecommended"
+				"texlive-collection-fontsrecommended"
+				"texlive-collection-latexextra"
+				"emacs-org-texlive-collection")))
 
 ;; MPD
 (define (home-mpd-service config)
