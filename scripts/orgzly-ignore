@@ -1,0 +1,36 @@
+#!/bin/raku
+use v6.d;
+
+sub find-tags(IO::Path $entry --> Str){
+    for $entry.lines -> $line {
+	if $line.contains("#+filetags:") { return $line; }
+    }
+    return "";
+}
+
+sub is-project(IO::Path $entry --> Bool){
+    my $tags-line = find-tags $entry;
+    return $tags-line.contains("Progetti");
+}
+
+sub is-area(IO::Path $entry --> Bool){
+    my $tags-line = find-tags $entry;
+    return $tags-line.contains("Area");
+}
+
+sub MAIN() {
+    my @files;
+    
+    for dir() -> $entry {
+	next if $entry.d;
+	next if not $entry.extension eq "org";
+	if !is-project($entry) && !is-area($entry) {
+	    @files.push($entry);
+	}
+    }
+    my $fh = open ".orgzlyignore", :w;
+    for @files -> $file {
+	$fh.say($file.basename);
+    }
+    $fh.close;
+}
