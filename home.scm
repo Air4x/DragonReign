@@ -191,7 +191,10 @@
 	      (".config/waybar/config.jsonc" ,(local-file "waybar/config.jsonc"))
 	      (".config/waybar/style.css" ,(local-file "waybar/style.css"))
 	      ("Immagini/wallpaper.jpg" ,(local-file "ultimate-blue-eyes.jpg"))
-	      ("Modelli/neocities.org" ,(local-file "templates/neocities.org"))))
+	      ("Modelli/neocities.org" ,(local-file "templates/neocities.org"))
+	      (".local/bin/wifi_menu" ,(local-wifi "scripts/wifi_menu"))
+	      (".local/bin/note-capture-image" ,(local-wifi "scripts/note-capture-image"))
+	      (".local/bin/orgzly-ignore" ,(local-wifi "scripts/orgzly-ignore"))))
    (simple-service 'variant-packages-service
                    home-channels-service-type
                    (list
