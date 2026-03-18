@@ -56,7 +56,9 @@
 				"libadwaita"
 				"hicolor-icon-theme"
 				"dunst"
+				"cursor-rose-pine"
 				"syncthing"
+				"xkeyboard-config"
 				"sway"
 				"swayidle"
 				"swaybg"
@@ -188,7 +190,8 @@
 	      (".config/dunst/dunstrc" ,(local-file "dunst/dunstrc"))
 	      (".config/waybar/config.jsonc" ,(local-file "waybar/config.jsonc"))
 	      (".config/waybar/style.css" ,(local-file "waybar/style.css"))
-	      ("Immagini/wallpaper.jpg" ,(local-file "ultimate-blue-eyes.jpg"))))
+	      ("Immagini/wallpaper.jpg" ,(local-file "ultimate-blue-eyes.jpg"))
+	      ("Modelli/neocities.org" ,(local-file "templates/neocities.org"))))
    (simple-service 'variant-packages-service
                    home-channels-service-type
                    (list
