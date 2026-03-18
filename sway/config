@@ -36,6 +36,8 @@ gaps inner 5
 output eDP-1 resolution 1920x1080 position 0,1080
 output HDMI-A-2 resolution 1920x1080 position 0,0
 
+
+seat seat0 xcursor_theme BreezeX-RosePine 24
 ### Idle configuration
 #
 # Example configuration:
@@ -78,8 +80,19 @@ input "1:1:AT_Translated_Set_2_keyboard" {
 }
 
 input "10473:12645:SmartCloud_galaxy_65" {
-        xkb_layout us(intl)
+        xkb_layout us
+	xkb_variant intl
 }
+
+input "1389:49271:I-CHIP_galaxy_65_Receiver_Keyboard" {
+      xkb_layout us
+      xkb_variant intl
+}
+
+input "1389:49271:I-CHIP_galaxy_65_Receiver" {
+      xkb_layout us
+      xkb_variant intl
+} 
 
 ### Key bindings
 #
