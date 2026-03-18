@@ -25,6 +25,12 @@
 	     (gnu packages terminals)
 	     (gnu packages shellutils)
 	     (gnu packages rust-apps)
+	     (gnu packages aspell)
+	     (gnu packages emulators)
+	     (gnu packages tex)
+	     (gnu packages qt)
+	     (gnu packages xorg)
+	     (gnu packages xdisorg)
 	     (gnu home services syncthing)
 	     (gnu home services guix)
 	     (saayix packages binaries)
@@ -41,7 +47,7 @@
 				"acpi"
 				"sbcl"
 				"guile"
-				"tofi"
+				"rofi"
 				"cliphist"
 				"wl-clipboard"
 				"grim"
@@ -50,7 +56,9 @@
 				"libadwaita"
 				"hicolor-icon-theme"
 				"dunst"
+				"cursor-rose-pine"
 				"syncthing"
+				"xkeyboard-config"
 				"sway"
 				"swayidle"
 				"swaybg"
@@ -100,11 +108,28 @@
 				"emacs-magit"
 				"emacs-auctex"
 				"emacs-elpher"
+				"aspell-dict-en"
+				"aspell-dict-it"
 				"icedove-wayland"
 				"telegram-desktop"
 				"signal-desktop"
 				"flatpak"
-				"flatpak-xdg-utils")))
+				"flatpak-xdg-utils"
+				"texlive-scheme-basic"
+				"texlive-collection-latexrecommended"
+				"texlive-collection-fontsrecommended"
+				"texlive-collection-latexextra"
+				"texlive-dvipng"
+				"texlive-xetex"
+				"texlive-hyperref"
+				"texlive-fmtcount"
+				"emacs-org-texlive-collection"
+				"retroarch"
+				"retroarch-assets"
+				"libretro-slang-shaders"
+				"libretro-beetle-gba"
+				"qtwayland"
+				"egl-wayland")))
 
 ;; MPD
 (define (home-mpd-service config)
@@ -151,6 +176,7 @@
    (service home-bash-service-type
 	    (home-bash-configuration
 	     (guix-defaults? #t)
+	     (environment-variables '(("QT_QPA_PLATFORM" . "wayland")))
 	     (bashrc (list (local-file "bash/conf")))
 	     (aliases '(("ls" . "eza")
 			("la" . "eza -a")
@@ -164,7 +190,8 @@
 	      (".config/dunst/dunstrc" ,(local-file "dunst/dunstrc"))
 	      (".config/waybar/config.jsonc" ,(local-file "waybar/config.jsonc"))
 	      (".config/waybar/style.css" ,(local-file "waybar/style.css"))
-	      ("Immagini/wallpaper.jpg" ,(local-file "ultimate-blue-eyes.jpg"))))
+	      ("Immagini/wallpaper.jpg" ,(local-file "ultimate-blue-eyes.jpg"))
+	      ("Modelli/neocities.org" ,(local-file "templates/neocities.org"))))
    (simple-service 'variant-packages-service
                    home-channels-service-type
                    (list

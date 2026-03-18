@@ -1,3 +1,3 @@
 #!/usr/bin/env bash
 
-nmcli d wifi connect "$(nmcli --fields SSID --terse d wifi | tr -s '\n' | tofi)"
+nmcli d wifi connect "$(nmcli --fields SSID --terse d wifi | tr -s '\n' | rofi -dmenu)"
