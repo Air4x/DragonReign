@@ -176,7 +176,8 @@
    (service home-bash-service-type
 	    (home-bash-configuration
 	     (guix-defaults? #t)
-	     (environment-variables '(("QT_QPA_PLATFORM" . "wayland")))
+	     (environment-variables '(("QT_QPA_PLATFORM" . "wayland")
+				      ("PATH" . "$PATH:/home/mario/.local/bin/")))
 	     (bashrc (list (local-file "bash/conf")))
 	     (aliases '(("ls" . "eza")
 			("la" . "eza -a")
@@ -192,9 +193,9 @@
 	      (".config/waybar/style.css" ,(local-file "waybar/style.css"))
 	      ("Immagini/wallpaper.jpg" ,(local-file "ultimate-blue-eyes.jpg"))
 	      ("Modelli/neocities.org" ,(local-file "templates/neocities.org"))
-	      (".local/bin/wifi_menu" ,(local-wifi "scripts/wifi_menu"))
-	      (".local/bin/note-capture-image" ,(local-wifi "scripts/note-capture-image"))
-	      (".local/bin/orgzly-ignore" ,(local-wifi "scripts/orgzly-ignore"))))
+	      (".local/bin/wifi_menu" ,(local-file "scripts/wifi_menu"))
+	      (".local/bin/note-capture-image" ,(local-file "scripts/note-capture-image"))
+	      (".local/bin/orgzly-ignore" ,(local-file "scripts/orgzly-ignore"))))
    (simple-service 'variant-packages-service
                    home-channels-service-type
                    (list
