@@ -296,9 +296,10 @@ bar {
 
 
 for_window [title="note-taking-image"] floating enable
+for_window [class="steam"] move workspace number 1
 
 exec dbus-update-activation-enviroment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP=sway
 exec wl-paste --type text --watch cliphist store
 exec swaybg  -i ~/Immagini/wallpaper.jpg -m fill
-
+exec dunst
 include /etc/sway/config.d/*
