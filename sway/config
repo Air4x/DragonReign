@@ -15,7 +15,7 @@ set $term alacritty
 set $menu rofi -show drun
 
 # cliphistory
-set $clip cliphist list | wofi --dmenu | cliphist decode | wl-copy
+set $clip cliphist list | rofi -dmenu | cliphist decode | wl-copy
 
 ### Window configuration
 default_border pixel 4
@@ -296,7 +296,7 @@ bar {
 
 
 for_window [title="note-taking-image"] floating enable
-for_window [class="steam"] move workspace number 1
+for_window [class="steam"] move workspace number 9
 
 exec dbus-update-activation-enviroment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP=sway
 exec wl-paste --type text --watch cliphist store
