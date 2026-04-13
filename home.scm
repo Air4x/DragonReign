@@ -91,6 +91,7 @@
 				"emacs-jinx"
 				"emacs-olivetti"
 				"emacs-org-roam"
+				"emacs-org-roam-ui"
 				"emacs-org-contacts"
 				"emacs-gnuplot"
 				"emacs-org-bullets"
