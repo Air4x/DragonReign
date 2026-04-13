@@ -193,6 +193,7 @@
 	      (".config/dunst/dunstrc" ,(local-file "dunst/dunstrc"))
 	      (".config/waybar/config.jsonc" ,(local-file "waybar/config.jsonc"))
 	      (".config/waybar/style.css" ,(local-file "waybar/style.css"))
+	      (".config/alacritty/alacritty.toml" ,(local-file "alacritty/alacritty.toml"))
 	      ("Immagini/wallpaper.jpg" ,(local-file "ultimate-blue-eyes.jpg"))
 	      ("Modelli/neocities.org" ,(local-file "templates/neocities.org"))
 	      (".local/bin/wifi_menu" ,(local-file "scripts/wifi_menu"))
