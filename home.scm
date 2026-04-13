@@ -183,12 +183,15 @@
 	    (home-bash-configuration
 	     (guix-defaults? #t)
 	     (environment-variables '(("QT_QPA_PLATFORM" . "wayland")
-				      ("PATH" . "$PATH:/home/mario/.local/bin/")))
+				      ("PATH" . "$PATH:/home/mario/.local/bin/")
+				      ("XDG_CURRENT_DESKTOP" . "sway")))
 	     (bashrc (list (local-file "bash/conf")))
 	     (aliases '(("ls" . "eza")
 			("la" . "eza -a")
 			("ll" . "eza -al")
-			("emc" . "emacsclient -nw")))
+			("emc" . "emacsclient -nw")
+			("wifi" . "nmcli d w")
+			("connect" . "nmcli d w c")))
 	     (bash-profile (list (local-file "bash/profile.conf")))))
    (service home-files-service-type
 	    `((".config/sway/config" ,(local-file "sway/config"))
