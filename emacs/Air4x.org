@@ -719,7 +719,8 @@ Impostazioni per [[https:https://libera.chat/][libera.chat]]
 ** RSS feed
 #+begin_src emacs-lisp
   (setq newsticker-url-list '(("100R" "https://100r.co/links/rss.xml")
-  			    ("Paged Out!" "https://pagedout.institute/atom.xml")))
+  			    ("Paged Out!" "https://pagedout.institute/atom.xml")
+  			    ("Oiomoio new albums" "https://www.iomoio.com/img/rss.xml")))
 #+end_src
 ** Telegram
 #+begin_src emacs-lisp
