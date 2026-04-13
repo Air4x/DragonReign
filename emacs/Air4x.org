@@ -448,7 +448,7 @@ di progetti e degli impegni definiti all'interno dei file in ~org-agenda-files~.
   	 ((todo "NEXT")))))
 #+end_src
 
-** Org-contacts
+** Gestione contatti
 #+begin_src emacs-lisp
   (use-package org-contacts
     :custom (org-contacts-files '("~/Documenti/PKB/contatti.org")))
