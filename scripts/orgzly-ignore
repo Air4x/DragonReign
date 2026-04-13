@@ -1,4 +1,4 @@
-#!/bin/raku
+#!/usr/bin/env raku
 use v6.d;
 
 sub find-tags(IO::Path $entry --> Str){
