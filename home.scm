@@ -35,6 +35,7 @@
 	     (gnu home services guix)
 	     (saayix packages binaries)
 	     (nongnu packages messaging)
+	     (nongnu packages emacs)
 	     (guix channels)
              (guix gexp))
 
