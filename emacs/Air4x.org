@@ -622,6 +622,12 @@ per hare è presente a: [[https://git.sr.ht/~bbuccianti/hare-mode]]
     :mode ("\\.ha\\'" . hare-mode))
 #+end_src
 
+** Zig
+#+begin_src emacs-lisp
+  (use-package zig-mode)
+#+end_src
+
+
 ** Java
 #+begin_src emacs-lisp :tangle no
   (use-package eglot-java)
