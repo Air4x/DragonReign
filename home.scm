@@ -134,7 +134,8 @@
 				"libretro-slang-shaders"
 				"libretro-beetle-gba"
 				"qtwayland"
-				"egl-wayland")))
+				"egl-wayland"
+				"pipemixer")))
 
 ;; MPD
 (define (home-mpd-service config)
