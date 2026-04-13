@@ -111,6 +111,8 @@
 				"emacs-magit"
 				"emacs-auctex"
 				"emacs-elpher"
+				"emacs-zig-mode"
+				"emacs-gruvbox-theme"
 				"aspell-dict-en"
 				"aspell-dict-it"
 				"icedove-wayland"
