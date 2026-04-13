@@ -126,11 +126,18 @@ Questo blocco di codice, imposta lo sfondo dei blocchi in org-mode sul grigio pe
 un effetto visivo dove il blocco veniva delimitato solo dalle linee di inizio e di fine, rendendolo
 meno leggibile. La seconda riga di condice attiva il supporto all'utilizzo di più font nello
 stesso buffer.
-#+begin_src emacs-lisp 
+#+begin_src emacs-lisp :tangle no
   (setq modus-themes-org-blocks 'gray-background)
   (setq modus-themes-mixed-fonts t)
   (load-theme 'modus-vivendi t)
 #+end_src
+
+#+begin_src emacs-lisp
+  (use-package gruvbox-theme)
+  (load-theme 'gruvbox-dark-hard t)
+
+#+end_src
+
 ** Perfect scroll
 #+begin_src emacs-lisp
   (setq scroll-step 1)
