@@ -61,6 +61,8 @@
 				"xkeyboard-config"
 				"sway"
 				"swayidle"
+				"xdg-desktop-portal"
+				"xdg-desktop-portal-wlr"
 				"swaybg"
 				"waybar"
 				"alacritty"
