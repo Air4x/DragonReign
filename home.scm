@@ -29,21 +29,25 @@
 	     (gnu packages emulators)
 	     (gnu packages tex)
 	     (gnu packages qt)
+	     (gnu packages version-control)
 	     (gnu packages xorg)
 	     (gnu packages xdisorg)
 	     (gnu home services syncthing)
 	     (gnu home services guix)
-	     (saayix packages binaries)
+	     (air4x packages zen)
 	     (nongnu packages messaging)
 	     (nongnu packages emacs)
 	     (guix channels)
-             (guix gexp))
+             (guix gexp)
+	     (guix packages)
+	     (guix utils))
 
 
 (define pkgs
   (map specification->package '("font-fira-code"
 				"font-nerd-fira-code"
 				"font-et-book"
+				"font-google-noto-emoji"
 				"htop"
 				"acpi"
 				"sbcl"
@@ -57,7 +61,6 @@
 				"libadwaita"
 				"hicolor-icon-theme"
 				"dunst"
-				"cursor-rose-pine"
 				"syncthing"
 				"xkeyboard-config"
 				"sway"
@@ -134,17 +137,20 @@
 				"retroarch-assets"
 				"libretro-slang-shaders"
 				"libretro-beetle-gba"
+				"libretro-bsnes-jg"
+				"libretro-bsnes-hd"
 				"qtwayland"
 				"egl-wayland"
-				"pipemixer")))
+				"pipemixer"
+				"github-cli")))
 
 ;; MPD
 (define (home-mpd-service config)
   (list (shepherd-service
-	 (provision '(mpd))
-	 (documentation "Run mpd the music player deamon")
-	 (start #~(make-system-constructor "mpd"))
-	 (stop #~(make-system-destructor "mpd" "--kill")))))
+	  (provision '(mpd))
+	  (documentation "Run mpd the music player deamon")
+	  (start #~(make-system-constructor "mpd"))
+	  (stop #~(make-system-destructor "mpd" "--kill")))))
 
 (define home-mpd-service-type
   (service-type
@@ -177,8 +183,8 @@
    (description "Emacs as a daemon to use with emacsclient")))
 
 (home-environment
- (packages pkgs)
- (services
+  (packages pkgs)
+  (services
   (list
    (service home-bash-service-type
 	    (home-bash-configuration
@@ -227,16 +233,16 @@
 		      (make-channel-introduction
 		       "9fb086fa9ee955c7daf755a5b114eedc030de99d"
 		       (openpgp-fingerprint
-			"4B1E F810 76ED 1A25 D15C CB18 4572 A777 FF18 DBCC"))))
+			"4B1E F810 76ED 1A25 D15C CB18 4572 A777 FF18 DBCC"))))  
 		    (channel
-		     (name 'saayix)
-		     (branch "main")
-		     (url "https://codeberg.org/look/saayix")
+		     (name 'boot-sector-launch)
+		     (url "https://github.com/Air4x/boot-sector-launch.git")
+		     (branch "master")
 		     (introduction
 		      (make-channel-introduction
-		       "12540f593092e9a177eb8a974a57bb4892327752"
+  		       "fb5c7f05324ec8228ea4e3ed3f0af7eda38a535d"
 		       (openpgp-fingerprint
-			"3FFA 7335 973E 0A49 47FC  0A8C 38D5 96BE 07D3 34AB"))))))
+			"F2FEFE669117674C003D55609BDFFC914D670025"))))))
    (service home-dbus-service-type)
    (service home-syncthing-service-type)
    (service home-mpd-service-type)
