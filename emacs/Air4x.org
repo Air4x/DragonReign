@@ -266,18 +266,19 @@ alle sue estensioni
 Major-mode per prendere note, basata su ~outline-mode~, fa anche da project
 management system e da agenda.
 #+begin_src emacs-lisp
-  (use-package org
-    :hook
-    (org-mode . org-indent-mode)
-    :config
-    (setq org-startup-indented t
-          org-pretty-entities t
-          org-hide-emphasis-markers t
-          org-startup-with-inline-images t
-          org-image-actual-width '(300))
-    (add-to-list 'org-modules 'org-habit t))
-  (setq org-export-backends '(beamer md latex html man ascii))
-  (use-package olivetti)
+    (use-package org
+      :hook
+      (org-mode . org-indent-mode)
+      :config
+      (setq org-startup-indented t
+            org-pretty-entities t
+            org-hide-emphasis-markers t
+            org-startup-with-inline-images t
+            org-image-actual-width '(300))
+      (add-to-list 'org-modules 'org-habit t)
+      (plist-put org-format-latex-options :scale 1.2))
+    (setq org-export-backends '(beamer md latex html man ascii))
+    (use-package olivetti)
 #+end_src
 
 *** Controllo grammaticale e sintattico
@@ -732,8 +733,7 @@ Impostazioni per [[https:https://libera.chat/][libera.chat]]
 ** RSS feed
 #+begin_src emacs-lisp
   (setq newsticker-url-list '(("100R" "https://100r.co/links/rss.xml")
-  			    ("Paged Out!" "https://pagedout.institute/atom.xml")
-  			    ("Oiomoio new albums" "https://www.iomoio.com/img/rss.xml")))
+  			    ("Paged Out!" "https://pagedout.institute/atom.xml")))
 #+end_src
 ** Telegram
 #+begin_src emacs-lisp
@@ -754,7 +754,7 @@ Codice vario che:
   (setq lock-file-name-transforms '((".*" "~/.cache/emacs/auto-save/" t)))
   (setq backup-directory-alist '((".*" . "~/.cache/emacs/auto-save/")))
 
-  (plist-put org-format-latex-options :scale 1.0)
+  (plist-put org-format-latex-options :scale 1.5)
 #+end_src
 
 ** Definire Zen come browser esterno
