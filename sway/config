@@ -86,6 +86,11 @@ input "1:1:AT_Translated_Set_2_keyboard" {
 	xkb_layout it
 }
 
+input "10473:12645:SmartCloud_galaxy_65_Keyboard" {
+      xkb_layout us
+      xkb_variant intl
+}
+
 input "10473:12645:SmartCloud_galaxy_65" {
         xkb_layout us
 	xkb_variant intl
@@ -219,6 +224,8 @@ input "1389:49271:I-CHIP_galaxy_65_Receiver" {
     bindsym $mod+w layout tabbed
     bindsym $mod+e layout toggle split
 
+    # Make a window sticky
+    bindsym $mod+Shift+s sticky toggle
     # Make the current focus fullscreen
     bindsym $mod+f fullscreen
 
