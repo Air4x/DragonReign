@@ -1,4 +1,4 @@
-#!/usr/bin/raku
+#!/usr/bin/env raku
 use v6.d;
 
 my $old-url = $*IN.readchars();
