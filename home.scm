@@ -210,9 +210,10 @@
 	      (".config/alacritty/alacritty.toml" ,(local-file "alacritty/alacritty.toml"))
 	      ("Immagini/wallpaper.jpg" ,(local-file "ultimate-blue-eyes.jpg"))
 	      ("Modelli/neocities.org" ,(local-file "templates/neocities.org"))
-	      (".local/bin/wifi_menu" ,(local-file "scripts/wifi_menu"))
-	      (".local/bin/note-capture-image" ,(local-file "scripts/note-capture-image"))
-	      (".local/bin/orgzly-ignore" ,(local-file "scripts/orgzly-ignore"))))
+	      (".local/bin/orgzly-ignore" ,(local-file "scripts/orgzly-ignore" #:recursive? #t))
+	      (".local/bin/note-capture-image" ,(local-file "scripts/note-capture-image" #:recursive? #t))
+	      (".local/bin/wifi_menu" ,(local-file "scripts/wifi_menu" #:recursive? #t))
+	      (".local/bin/yt-url" ,(local-file "scripts/yt-url" #:recursive? #t))))
    (simple-service 'variant-packages-service
                    home-channels-service-type
                    (list
