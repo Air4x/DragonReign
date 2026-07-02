@@ -32,6 +32,7 @@
 	     (gnu packages version-control)
 	     (gnu packages xorg)
 	     (gnu packages xdisorg)
+	     (gnu packages tcl)
 	     (gnu home services syncthing)
 	     (gnu home services guix)
 	     (air4x packages zen)
@@ -43,106 +44,165 @@
 	     (guix utils))
 
 
-(define pkgs
-  (map specification->package '("font-fira-code"
-				"font-nerd-fira-code"
-				"font-et-book"
-				"font-google-noto-emoji"
-				"htop"
-				"acpi"
-				"sbcl"
-				"guile"
-				"rofi"
-				"cliphist"
-				"wl-clipboard"
-				"grim"
-				"slurp"
-				"eza"
-				"libadwaita"
-				"hicolor-icon-theme"
-				"dunst"
-				"syncthing"
-				"xkeyboard-config"
-				"sway"
-				"swayidle"
-				"xdg-desktop-portal"
-				"xdg-desktop-portal-wlr"
-				"swaybg"
-				"waybar"
-				"alacritty"
-				"starship"
-				"ripgrep"
-				"mpd"
-				"mpd-mpc"
-				"ncmpcpp"
-				"zen-browser-bin"
-				"rakudo"
-				"perl"
-				"perl6-zef"
-				"emacs-pgtk"
-				"emacs-telega"
-				"emacs-raku-mode"
-				"emacs-slime"
-				"emacs-all-the-icons"
-				"emacs-ligature"
-				"emacs-mixed-pitch"
-				"emacs-consult"
-				"emacs-vertico"
-				"emacs-marginalia"
-				"emacs-orderless"
-				"emacs-embark"
-				"emacs-org"
-				"emacs-jinx"
-				"emacs-olivetti"
-				"emacs-org-roam"
-				"emacs-org-roam-ui"
-				"emacs-org-contacts"
-				"emacs-gnuplot"
-				"emacs-org-bullets"
-				"emacs-org-appear"
-				"emacs-htmlize"
-				"emacs-pdf-tools"
-				"emacs-org-tree-slide"
-				"emacs-eat"
-				"emacs-yasnippet"
-				"emacs-yasnippet-snippets"
-				"emacs-paredit"
-				"emacs-rainbow-delimiters"
-				"emacs-geiser"
-				"emacs-geiser-guile"
-				"emacs-corfu"
-				"emacs-cape"
-				"emacs-magit"
-				"emacs-auctex"
-				"emacs-elpher"
-				"emacs-zig-mode"
-				"emacs-gruvbox-theme"
-				"aspell-dict-en"
-				"aspell-dict-it"
-				"icedove-wayland"
-				"telegram-desktop"
-				"signal-desktop"
-				"flatpak"
-				"flatpak-xdg-utils"
-				"texlive-scheme-basic"
-				"texlive-collection-latexrecommended"
-				"texlive-collection-fontsrecommended"
-				"texlive-collection-latexextra"
-				"texlive-dvipng"
-				"texlive-xetex"
-				"texlive-hyperref"
-				"texlive-fmtcount"
-				"emacs-org-texlive-collection"
-				"retroarch"
-				"retroarch-assets"
-				"libretro-slang-shaders"
-				"libretro-beetle-gba"
-				"libretro-bsnes-jg"
-				"libretro-bsnes-hd"
-				"qtwayland"
-				"egl-wayland"
-				"pipemixer"
-				"github-cli")))
+(define fonts
+  '("font-fira-code"
+    "font-nerd-fira-code"
+    "font-et-book"
+    "font-google-noto-emoji"
+    "font-google-noto"))
+
+(define clis
+  '("htop"
+    "acpi"
+    "eza"
+    "ripgrep"
+    "pipemixer"
+    "ffmpeg"
+    "imagemagick"
+    "pdftk"
+    ""))
+
+(define IM
+  '("icedove-wayland"
+    "telegram-desktop"
+    "signal-desktop"
+    "jami"
+    "mumble"))
+
+(define sway-core
+  '("sway"
+    "swaybg"
+    "rofi"
+    "xkeyboard-config"
+    "alacritty"
+    "starship"))
+
+(define desktop-common
+  '("cliphist"
+    "wl-clipboard"
+    "grim"
+    "slurp"
+    "libadwaita"
+    "hicolor-icon-theme"
+    "dunst"
+    "syncthing"))
+
+(define desktop-extra
+  '("xdg-desktop-portal"
+    "xdg-desktop-portal-wlr"
+    "waybar"
+    "zen-browser-bin"))
+
+(define desktop-portable
+  '("swayidle"))
+
+(define music
+  '("mpd"
+    "mpd-mpc"
+    "ncmpcpp"))
+
+(define emacs-core
+  '("emacs-pgtk"
+    "emacs-all-the-icons"
+    "emacs-ligature"
+    "emacs-mixed-pitch"
+    "emacs-consult"
+    "emacs-vertico"
+    "emacs-marginalia"
+    "emacs-orderless"
+    "emacs-embark"
+    "emacs-org"
+    "emacs-jinx"
+    "emacs-olivetti"
+    "emacs-org-roam"
+    "emacs-org-roam-ui"
+    "emacs-org-contacts"
+    "emacs-gnuplot"
+    "emacs-org-bullets"
+    "emacs-org-appear"
+    "emacs-htmlize"
+    "emacs-pdf-tools"
+    "emacs-org-tree-slide"
+    "emacs-eat"
+    "emacs-yasnippet"
+    "emacs-yasnippet-snippets"
+    "emacs-gruvbox-theme"
+    "emacs-corfu"
+    "emacs-cape"
+    "emacs-magit"
+    "emacs-org-texlive-collection"))
+
+
+(define emacs-extra
+  '("emacs-telega"
+    "emacs-ement"
+    "emacs-elpher"))
+
+(define dictionaries
+  '("aspell-dict-en"
+    "aspell-dict-it"))
+
+(define zig
+  '("zig"
+    "zig-zls"
+    "emacs-zig-mode"))
+
+(define raku
+  '("rakudo"
+    "perl6-zef"))
+
+(define raku-dev
+  '("emacs-raku-mode"))
+
+(define latex
+  '("texlive-scheme-basic"
+    "texlive-collection-latexrecommended"
+    "texlive-collection-fontsrecommended"
+    "texlive-collection-latexextra"
+    "texlive-dvipng"
+    "texlive-xetex"
+    "texlive-hyperref"
+    "texlive-fmtcount"))
+
+(define latex-dev
+  '("emacs-auctex"))
+
+(define perl
+  '("perl"
+    "perl-tk"))
+
+(define lisp-dev
+  '("emacs-paredit"
+    "emacs-rainbow-delimiters"))
+
+(define cl
+  '("sbcl"
+    "emacs-slime"))
+
+(define guile
+  '("guile"
+    "emacs-geiser"
+    "emacs-geiser-guile"))
+
+(define emulators
+  '("retroarch"
+    "retroarch-assets"
+    "libretro-slang-shaders"
+    "libretro-beetle-gba"
+    "libretro-bsnes-jg"
+    "libretro-bsnes-hd"))
+
+(define development
+  '("github-cli"))
+
+(define flatpak-core
+  '("flatpak"
+    "flatpak-xdg-utils"))
+
+(define misc
+  '("qtwayland"
+    "egl-wayland"))
+
 
 ;; MPD
 (define (home-mpd-service config)
@@ -183,8 +243,31 @@
    (description "Emacs as a daemon to use with emacsclient")))
 
 (home-environment
-  (packages pkgs)
-  (services
+ (packages (map specification->package (append fonts
+					       clis
+					       IM
+					       sway-core
+					       desktop-common
+					       desktop-extra
+					       desktop-portable
+					       music
+					       emacs-core
+					       emacs-extra
+					       dictionaries
+					       zig
+					       raku
+					       raku-dev
+					       latex
+					       latex-dev
+					       perl
+					       lisp-dev
+					       cl
+					       guile
+					       emulators
+					       development
+					       flatpak-core
+					       misc)))
+ (services
   (list
    (service home-bash-service-type
 	    (home-bash-configuration
