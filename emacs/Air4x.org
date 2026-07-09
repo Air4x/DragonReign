@@ -754,7 +754,7 @@ Codice vario che:
   (setq lock-file-name-transforms '((".*" "~/.cache/emacs/auto-save/" t)))
   (setq backup-directory-alist '((".*" . "~/.cache/emacs/auto-save/")))
 
-  (plist-put org-format-latex-options :scale 1.5)
+  (setq org-format-latex-options (plist-put org-format-latex-options :scale 1.5))
 #+end_src
 
 ** Definire Zen come browser esterno
