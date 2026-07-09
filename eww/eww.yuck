@@ -1,0 +1,261 @@
+(defpoll network
+	 :interval "10s"
+	 "./inet.sh")
+
+(defpoll time
+	 :interval "30s"
+	 `date +'{"hour":"%H","min":"%M"}'`)
+
+(defpoll volume
+	 :interval "1s"
+	 "pactl get-sink-volume 0 | awk '{ print $5 }'")
+
+(defpoll ram
+	 :interval "10s"
+	 "free -h | tail -2 | head -1 | awk '{ print $7 }' | sed 's/Gi/G/'")
+
+(defpoll cpu
+	 :interval "10s"
+	 "./cpu-average.pl")
+
+(defpoll meteo
+	 :interval "600s"
+	 "./meteo.pl")
+
+(defpoll mpd-image
+	 :interval "30s"
+	 "./mpd-get-image.pl")
+
+(defpoll mpd-title
+	 :interval "30s"
+	 "mpc current --format %title%")
+
+(defpoll mpd-duration
+	 :interval "1s"
+	 "./mpd-duration.pl")
+
+(deflisten ws
+	   "./workspace.pl")
+
+(defwidget clock []
+	   (box
+	    :orientation "v"
+	    :class "clock"
+	    :space-evenly true
+	    (label :class "hour" :halign "start" :text {time.hour})
+	    (label :class "min" :halign "end" :text {time.min})))
+
+(defwindow clock-window
+	   :monitor 0
+	   :geometry (geometry :x "54px"
+			       :y "58px"
+			       :width "262px"
+			       :heigth "189px"
+			       :anchor "top left")
+	   :stacking "bg"
+	   :exclusive "false"
+	   :focusable "none"
+	   (clock))
+
+(defwidget network []
+	(box
+	 :orientation "v"
+	 :class "network"
+	 :space-evenly true
+	 (label :class "net_icon" :text {network})))
+
+(defwidget volume []
+	   (box
+	    :orientation "h"
+	    :class "volume"
+	    :space-evenly true
+	    (label :class "volume_text" :text {volume})))
+
+(defwidget ram []
+	   (box
+	    :orientation "h"
+	    :class "ram"
+	    :space-evenly true
+	    (label :class "ram_text" :text {ram})))
+
+(defwidget cpu-average []
+	   (box
+	    :orientation "h"
+	    :class "cpu"
+	    :space-evenly true
+	    (label :class "cpu_text" :text {cpu})))
+
+(defwidget meteo []
+	   (box
+	    :orientation "v"
+	    :class "meteo"
+	    :space-evenly true
+	    (box
+	     :orientation "h"
+	     :class "meteo_temp_icon"
+	     :space-evenly true
+	     (label :class "meteo_temp" :text {meteo.temp})
+	     (label :class "meteo_icon" :text {meteo.icon}))
+	    (box
+	     :orientation "h"
+	     :class "meteo_felt_humidity"
+	     :space-evenly true
+	     (label :class "meteo_felt" :text {meteo.temp_felt})
+	     (label :class "meteo_humidity" :text {meteo.humidity}))
+	    (box
+	     :orientation "h"
+	     :class "meteo_condition_gust"
+	     :space-evenly true
+	     (label :class "meteo_condition" :text {meteo.condition})
+	     (label :class "meteo_gust" :text {meteo.wind_speed}))))
+
+(defwidget status []
+	   (box
+	    :orientation "v"
+	    :class "status"
+	    :space-evenly true
+	    (box
+	     :orientation "h"
+	     :class "status_top"
+	     :space-evenly true
+	     (volume)
+	     (network))
+	    (meteo)
+	    (box
+	     :orientation "h"
+	     :class "status_bottom"
+	     :space-evenly true
+	     (cpu-average)
+	     (ram))))
+
+(defwindow status
+	   :monitor 0
+	   :geometry (geometry :x "2212px"
+			       :y "58px"
+			       :width "214px"
+			       :heigth "150px"
+			       :anchor "top left")
+	   :stacking "bg"
+	   :exclusive "false"
+	   :focusable "none"
+	   (status))
+
+(defwidget workspaces []
+	   (box
+	    :orientation "h"
+	    :class "workspace"
+	    :space-evenly true
+	    (button
+	     :timeout "200ms"
+	     :onclick "swaymsg workspace number 1"
+	     :class "ws_button"
+	     (label :class {ws[0]?.focus ? "ws_active" : "ws_inactive"} :text {ws[0]?.name ?: "1"}))
+	    (button
+	     :timeout "200ms"
+	     :onclick "swaymsg workspace number 2"
+	     :class "ws_button"
+	     (label :class {ws[1]?.focus  ? "ws_active" : "ws_inactive"} :text {ws[1]?.name ?: "2"}))
+	    (button
+	     :timeout "200ms"
+	     :onclick "swaymsg workspace number 3"
+	     :class "ws_button"
+	     (label :class {ws[2]?.focus ? "ws_active" : "ws_inactive"} :text {ws[2]?.name ?: "3"}))
+	    (button
+	     :timeout "200ms"
+	     :onclick "swaymsg workspace number 4"
+	     :class "ws_button"
+	     (label :class {ws[3]?.focus ? "ws_active" : "ws_inactive"} :text {ws[3]?.name ?: "4"}))
+	    (button
+	     :timeout "200ms"
+	     :onclick "swaymsg workspace number 5"
+	     :class "ws_button"
+	     (label :class {ws[4]?.focus ? "ws_active" : "ws_inactive"} :text {ws[4]?.name ?: "5"}))
+	    (button
+	     :timeout "200ms"
+	     :onclick "swaymsg workspace number 6"
+	     :class "ws_button"
+	     (label :class {ws[5]?.focus ? "ws_active" : "ws_inactive"} :text {ws[5]?.name ?: "6"}))
+	    (button
+	     :timeout "200ms"
+	     :onclick "swaymsg workspace number 7"
+	     :class "ws_button"
+	     (label :class {ws[6]?.focus ? "ws_active" : "ws_inactive"} :text {ws[6]?.name ?: "7"}))
+	    (button
+	     :timeout "200ms"
+	     :onclick "swaymsg workspace number 8"
+	     :class "ws_button"
+	     (label :class {ws[7]?.focus ? "ws_active" : "ws_inactive"} :text {ws[7]?.name ?: "8"}))
+	    (button
+	     :timeout "200ms"
+	     :onclick "swaymsg workspace number 9"
+	     :class "ws_button"
+	     (label :class {ws[8]?.focus ? "ws_active" : "ws_inactive"} :text {ws[8]?.name ?: "9"}))
+	    (button
+	     :timeout "200ms"
+	     :onclick "swaymsg workspace number 10"
+	     :class "ws_button"
+	     (label :class {ws[9]?.focus ? "ws_active" : "ws_inactive"} :text {ws[9]?.name ?: "10"}))))
+
+(defwindow workspaces
+	   :monitor 0
+	   :geometry (geometry :x "966px" ; 966,198
+			       :y "58px"
+			       :width "596px"
+			       :heigth "29px"
+			       :anchor "top left")
+	   :stacking "bg"
+	   :exclusive "false"
+	   :focusable "ondemand"
+	   (workspaces))
+	   
+	  
+(defwidget mpd-cover []
+	   (box
+	     :orientation "h"
+	     :class "mpd_image"
+	     :space-evenly false
+	     (image :class "mpd_image_path"
+		    :image-width 100
+		    :image-height 100
+		    :path {mpd-image})))
+
+
+(defwidget mpd-title []
+	   (box
+	    :orientation "h"
+	    :class "mpd_title"
+	    :space-evenly true
+	    (label :class "mpd_title_text" :text mpd-title)))
+
+(defwidget mpd-duration []
+	   (box
+	    :orientation "h"
+	    :class "mpd_duration"
+	    :space-evenly true
+	    (label :class "mpd_duration_text" :text {mpd-duration.text})))
+
+(defwidget mpd []
+	   (box
+	    :orientation "h"
+	    :class "mpd"
+	    :space-evenly true
+	    (mpd-cover)
+	    (box
+	     :orientation "v"
+	     :class "mpd_image_title"
+	     :space-evenly true
+	     (mpd-title)
+	     (mpd-duration))))
+
+
+(defwindow music
+	   :monitor 0
+	   :geometry (geometry :x "1114px" 
+			       :y "509px"
+			       :width "300px"
+			       :heigth "100px"
+			       :anchor "top left")
+	   :stacking "bg"
+	   :exclusive false
+	   :focusable "none"
+	   (mpd))

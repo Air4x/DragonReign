@@ -1,0 +1,101 @@
+$bg: #282828;
+$bg2: #504945;
+$fg: #ebdbb2;
+$font: "FiraCode Nerd Font";
+
+.clock {
+    font-family: $font;
+    font-size: 100px;
+    color: $fg;
+    background-color: $bg;
+}
+
+.network {
+    font-family: $font;
+    font-size: 45px;
+    color: $fg;
+    background-color: $bg;
+}
+
+.volume {
+    font-family: $font;
+    font-size: 40px;
+    color: $fg;
+    background-color: $bg;
+}
+
+.ram {
+    font-family: $font;
+    font-size: 40px;
+    color: $fg;
+    background-color: $bg;
+}
+
+.cpu {
+    font-family: $font;
+    font-size: 25px;
+    color: $fg;
+    background-color: $bg;
+}
+
+.meteo {
+    font-family: $font;
+    color: $fg;
+    font-size: 20px;
+    background-color: $bg;
+}
+
+.meteo_temp {
+    font-family: $font;
+    font-size: 30px;
+}
+
+.meteo_humidity { }
+
+.meteo_icon {
+    font-family: $font;
+    font-size: 25px;
+}
+
+.mpd {
+    font-family: $font;
+    font-size: 25px;
+    color: $fg;
+    background-color:$bg;
+}
+
+.mpd_title {
+    background-color:$bg;
+}
+
+.mpd_title_text {
+    font-family: $font;
+    font-size: 15px;
+    color: $fg;
+}
+
+.mpd_duration_text {
+    font-size: 20px;
+}
+
+.workspace {
+    background-color: $bg;
+}
+
+.ws_button {
+    background-color: $bg;
+    padding: 0px 0px 0px 0px;
+    font-family: $font;
+    font-size: 20px;
+    border: 0px solid;
+}
+
+.ws_active {
+    color: $fg;
+    background-color: $bg;
+}
+
+.ws_inactive {
+    color: $bg2;
+    background-color: $bg;
+}
