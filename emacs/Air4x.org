@@ -310,9 +310,9 @@ per implementare il metodo CODE.
         "%?"
         :if-new (file+head "${slug}.org" "#+title: ${title}\n#+filetags:\n#+startup: inlineimages")
         :unnarrowed t)
-       ("n" "Blog Article" plain
-        (file "~/Modelli/neocities.org")
-        :if-new (file+head "neocities_${slug}.org" "#+title: ${title}\n#+filetags: :Articolo:")
+       ("b" "Blog Article" plain
+        (file "~/Modelli/blog_articl.org")
+        :if-new (file+head "blog/articles/blog_${slug}.org" "#+title: ${title}\n\n#+date: %Y-%m-%d %H:%M#+filetags: :Articolo:")
         :unnarrowed t)
        ("p" "Progetto" plain
         "%?"
@@ -447,6 +447,37 @@ di progetti e degli impegni definiti all'interno dei file in ~org-agenda-files~.
   	 ((todo "NOTE")))
   	("F" "Prossima azione"
   	 ((todo "NEXT")))))
+#+end_src
+
+** Org-publish
+#+begin_src emacs-lisp
+  (setq org-publish-project-alist
+        '(("blog_articles"
+  	 :base-directory "~/Documenti/PKB/blog/articles"
+  	 :base-extension "org"
+  	 :publishing-directory "~/Progetti/Air4x.github.io/articles"
+  	 :recursive f
+  	 :publishing-function org-html-publish-to-html
+  	 :headline-levels 4
+  	 :auto-preamble t)
+  	("blog_images"
+  	 :base-directory "~/Documenti/PKB/blog/articles/images"
+  	 :base-extension "css\\|png\\|jpg\\|gif"
+  	 :publishing-directory "~/Progetti/Air4x.github.io/images"
+  	 :recursive f
+  	 :publishing-function org-publish-attachment
+  	 :headline-levels 4
+  	 :auto-preamble t)
+  	("blog_root_pages"
+  	 :base-directory "~/Documenti/PKB/blog/"
+  	 :base-extension "org"
+  	 :publishing-directory "~/Progetti/Air4x.github.io/"
+  	 :recursive f
+  	 :publishing-function org-html-publish-to-html
+  	 :headline-levels 4
+  	 :auto-preamble t)
+  	("org" :components ("blog_articles" "blog_images" "blog_root_pages"))))
+
 #+end_src
 
 ** Gestione contatti

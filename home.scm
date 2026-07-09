@@ -59,8 +59,7 @@
     "pipemixer"
     "ffmpeg"
     "imagemagick"
-    "pdftk"
-    ""))
+    "pdftk"))
 
 (define IM
   '("icedove-wayland"
@@ -292,11 +291,20 @@
 	      (".config/waybar/style.css" ,(local-file "waybar/style.css"))
 	      (".config/alacritty/alacritty.toml" ,(local-file "alacritty/alacritty.toml"))
 	      ("Immagini/wallpaper.jpg" ,(local-file "ultimate-blue-eyes.jpg"))
-	      ("Modelli/neocities.org" ,(local-file "templates/neocities.org"))
+	      ("Modelli/blog_article.org" ,(local-file "templates/blog_article.org"))
+	      ;; recursive is set to true to mantain file permission
 	      (".local/bin/orgzly-ignore" ,(local-file "scripts/orgzly-ignore" #:recursive? #t))
 	      (".local/bin/note-capture-image" ,(local-file "scripts/note-capture-image" #:recursive? #t))
 	      (".local/bin/wifi_menu" ,(local-file "scripts/wifi_menu" #:recursive? #t))
-	      (".local/bin/yt-url" ,(local-file "scripts/yt-url" #:recursive? #t))))
+	      (".local/bin/yt-url" ,(local-file "scripts/yt-url" #:recursive? #t))
+	      (".config/eww/cpu-average.pl" ,(local-file "eww/cpu-average.pl"#:recursive? #t))
+	      (".config/eww/inet.sh" ,(local-file "eww/inet.sh" #:recursive? #t))
+	      (".config/eww/meteo.pl" ,(local-file "eww/meteo.pl" #:recursive? #t))
+	      (".config/eww/mpd-duration.pl" ,(local-file "eww/mpd-duration.pl" #:recursive? #t))
+	      (".config/eww/mpd-get-image.pl" ,(local-file "eww/mpd-get-image.pl" #:recursive? #t))
+	      (".config/eww/workspace.pl" ,(local-file "eww/workspace.pl" #:recursive? #t))
+	      (".config/eww/eww.yuck" ,(local-file "eww/eww.yuck"))
+	      (".config/eww/eww.scss" ,(local-file "eww/eww.scss"))))
    (simple-service 'variant-packages-service
                    home-channels-service-type
                    (list
