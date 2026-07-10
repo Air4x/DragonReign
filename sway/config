@@ -289,9 +289,9 @@ bindsym $mod+r mode "resize"
 #     status_command i3status-rs
 # }
 
-bar {
-    swaybar_command waybar
-}   
+# bar {
+#     swaybar_command waybar
+# }   
 
 
 for_window [title="note-taking-image"] floating enable
