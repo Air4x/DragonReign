@@ -49,7 +49,9 @@
     "font-nerd-fira-code"
     "font-et-book"
     "font-google-noto-emoji"
-    "font-google-noto"))
+    "font-google-noto"
+    "font-google-noto-serif-cjk"
+    "font-google-noto-sans-cjk"))
 
 (define clis
   '("htop"
