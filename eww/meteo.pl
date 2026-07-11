@@ -3,6 +3,14 @@ use v5.36;
 use utf8;
 use HTTP::Tiny;
 use JSON::PP;
+use File::Spec;
+
+sub get_key ($path) {
+  open my $fh, "<", $path or die "get_key: can't open $path";
+  my $key = <$fh>;
+  close $fh;
+  return $key;
+}
 
 # hash of icon codes -> icon character
 my %icons = (
@@ -26,10 +34,11 @@ my %icons = (
 	     '50n' => "󰖑",
 	     );
 
+my $key_path = File::Spec->catdir($ENV{HOME}, ".config", "openweathermap", "key");
 my $base_url = "http://api.openweathermap.org/data/2.5/weather?";
 my $lat = 41.24;
 my $lon = 13.93;
-my $key = "38825337c784e10f3d96a372b54454ed";
+my $key = get_key($key_path);
 
 # hash containig all the data we care about
 my %weather = ();
