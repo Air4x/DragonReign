@@ -302,5 +302,5 @@ exec wl-paste --type text --watch cliphist store
 exec swaybg  -i ~/Immagini/wallpaper.jpg -m fill
 exec dunst
 exec eww daemon
-exec eww open-many status music clock-window workspaces
+exec eww open-many status music clock-window workspaces tray
 include /etc/sway/config.d/*
