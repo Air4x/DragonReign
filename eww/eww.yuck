@@ -259,3 +259,24 @@
 	   :exclusive false
 	   :focusable "none"
 	   (mpd))
+
+
+(defwidget tray []
+	   (systray
+	    :class "tray"
+	    :spacing 10
+	    :orientation "h"
+	    :space-evenly true
+	    :icon-size 30))
+
+(defwindow tray ;;1111,262 314x31
+	   :monitor 0
+	   :geometry (geometry :x "1111px" 
+			       :y "262px"
+			       :width "314px"
+			       :heigth "31px"
+			       :anchor "top left")
+	   :stacking "bg"
+	   :exclusive false
+	   :focusable "ondemand"
+	   (tray))
