@@ -2,10 +2,10 @@
 	"id": "bar-0",
 	"ipc": true,
 	"layer": "top",
-	"position": "bottom",
+	"position": "top",
 	"modules-left": ["sway/workspaces"],
 	"modules-center": ["mpd"],
-	"modules-right": ["network","pulseaudio","battery", "clock", "tray"],
+	"modules-right": ["disk","network","pulseaudio","battery", "idle_inhibitor","clock", "tray"],
 	"battery": {
 		"format": "{capacity}% {icon}",
 			"format-icons": ["", "", "", "", ""]
@@ -42,6 +42,18 @@
 		   "format-wifi": "  {essid}",
 		   "format-disconnected": "󰜺",
 		   "format-disabled": "󰀝",
-	}
+	},
+	"disk": {
+		"path": "/home/mario"
+	},
+	"idle_inhibitor": {
+                "format": "{icon}",
+                "format-icons": {
+                     "activated": "",
+                     "deactivated": ""
+                },
+                "timeout": 30.5
+           }
+	
 }
 
