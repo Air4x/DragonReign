@@ -1,0 +1,753 @@
+#+TITLE: Emacs Configuration
+#+AUTHOR: Mario Calcagno aka Air4x
+#+PROPERTY: header-args:emacs-lisp :tangle ./init.el
+#+STARTUP: overview
+
+#+begin_src emacs-lisp
+  (setq gc-cons-threshold (* 50 1000 1000))
+#+end_src
+
+* Configurazione gestore pacchetti e load path
+#+begin_src emacs-lisp
+  (require 'package)
+
+  (setq package-archives '(("melpa-stable" . "https://stable.melpa.org/packages/")
+  			 ("melpa" . "https://melpa.org/packages/")
+  			 ("gnu"    . "https://elpa.gnu.org/packages/")
+  			 ("nongnu" . "https://elpa.nongnu.org/nongnu/")))
+
+  (package-initialize)
+  (unless package-archive-contents
+    (package-refresh-contents))
+
+  (require 'use-package)
+  (setq use-package-always-ensure t)
+#+end_src
+
+** load-path
+#+begin_src emacs-lisp
+  (push "~/.config/emacs/scripts" load-path)
+  (push "~/.config/emacs/scripts/slime-critic/" load-path)
+#+end_src
+
+* Dipendenze
+** All-the-icons
+#+begin_src emacs-lisp
+  (use-package all-the-icons)
+#+end_src
+** Variabili d'ambiente
+#+begin_src emacs-lisp
+  (use-package exec-path-from-shell)
+  (when (daemonp)
+    (exec-path-from-shell-initialize))
+#+end_src
+
+* Interfaccia grafica
+** Per un interfaccia più pulita
+Venendo da (neo)vim preferisco interfacce senza barre degli strumenti o
+barre menu. Ottenendo un'interfaccia più coerente tra GUI e terminale.
+In particolare questo codice disattiva:
+- barra del menù
+- barra degli strumenti
+- scroll bar
+L'ultima linea serve a modificare l'opacità della finestra (frame in
+emacs lingo).  Per un periodo l'ho impostata al 85%, ma per
+leggibilità la preferisco completamente opaca.
+#+begin_src emacs-lisp
+  (menu-bar-mode -1)
+  (scroll-bar-mode -1)
+  (tool-bar-mode -1)
+#+end_src
+** Font
+#+begin_src emacs-lisp
+    (defun dr/set-font-faces ()
+      (set-face-attribute 'default nil :font "FiraCode Nerd Font" :height 165)
+      (set-face-attribute 'fixed-pitch nil :font "FiraCode Nerd Font" :height 165)
+      (set-face-attribute 'variable-pitch nil :font "ETBembo" :height 165))
+
+    (if (daemonp)
+        (add-hook 'server-after-make-frame-hook
+    	      (lambda ()
+    		(with-selected-frame (selected-frame)
+    		  (dr/set-font-faces))))
+      (dr/set-font-faces))
+
+    (use-package mixed-pitch
+      :hook ((org-mode . mixed-pitch-mode)
+  	   (html-mode . mixed-pitch-mode)))
+#+end_src
+** Ligatures
+#+begin_src emacs-lisp
+  (use-package ligature
+    :config
+    ;; Enable all FiraCode  ligatures in programming modes
+    (ligature-set-ligatures t    '(("=" (rx (+ (or ">" "<" "|" "/" "~" ":" "!" "="))))
+  				 (";" (rx (+ ";")))
+  				 ("&" (rx (+ "&")))
+  				 ("!" (rx (+ (or "=" "!" "\." ":" "~"))))
+  				 ("?" (rx (or ":" "=" "\." (+ "?"))))
+  				 ("%" (rx (+ "%")))
+  				 ("|" (rx (+ (or ">" "<" "|" "/" ":" "!" "}" "\]"
+  						 "-" "=" ))))
+  				 
+  				 ("\\" (rx (or "/" (+ "\\"))))
+  				 
+  				 ("+" (rx (or ">" (+ "+"))))
+  				 
+  				 (":" (rx (or ">" "<" "=" "//" ":=" (+ ":"))))
+  				 
+  				 ("/" (rx (+ (or ">"  "<" "|" "/" "\\" "\*" ":" "!"
+  						 "="))))
+  				 
+  				 ("\." (rx (or "=" "-" "\?" "\.=" "\.<" (+ "\."))))
+  				 
+  				 ("-" (rx (+ (or ">" "<" "|" "~" "-"))))
+  				 
+  				 ("*" (rx (or ">" "/" ")" (+ "*"))))
+  				 
+  				 ("w" (rx (+ "w")))
+  				 ("<" (rx (+ (or "\+" "\*" "\$" "<" ">" ":" "~"  "!"
+  						 "-"  "/" "|" "="))))
+  				 (">" (rx (+ (or ">" "<" "|" "/" ":" "=" "-"))))
+  				 ("#" (rx (or ":" "=" "!" "(" "\?" "\[" "{" "_(" "_"
+  					      (+ "#"))))
+  				 ("~" (rx (or ">" "=" "-" "@" "~>" (+ "~"))))
+  				 ("_" (rx (+ (or "_" "|"))))
+  				 ("0" (rx (and "x" (+ (in "A-F" "a-f" "0-9")))))
+  				 "Fl"  "Tl"  "fi"  "fj"  "fl"  "ft"
+  				 "{|"  "[|"  "]#"  "(*"  "}#"  "$>"  "^="))
+    (global-ligature-mode t))
+#+end_src
+** Temi
+Emacs 27+ ha due temi aggiuntivi: modus-operandi (tema chiaro) e modus-vivendi (tema scuro)
+creati da [[https://protesilaos.com/][Protesilaos Stavrou]], con un occhio in più per l'accessibilità e l'alto contrasto.
+
+Questo blocco di codice, imposta lo sfondo dei blocchi in org-mode sul grigio per evitare
+un effetto visivo dove il blocco veniva delimitato solo dalle linee di inizio e di fine, rendendolo
+meno leggibile. La seconda riga di condice attiva il supporto all'utilizzo di più font nello
+stesso buffer.
+#+begin_src emacs-lisp :tangle no
+  (setq modus-themes-org-blocks 'gray-background)
+  (setq modus-themes-mixed-fonts t)
+  (load-theme 'modus-vivendi t)
+#+end_src
+
+#+begin_src emacs-lisp
+  (use-package gruvbox-theme)
+  (load-theme 'gruvbox-dark-hard t)
+
+#+end_src
+
+** Perfect scroll
+#+begin_src emacs-lisp
+  (setq scroll-step 1)
+  (setq scroll-conservatively 100000)
+  (setq scroll-preserve-screen-position 1)
+  (setq scroll-margin 0)
+  (setq mouse-wheel-scroll-amount '(1))
+  (setq mouse-wheel-progerssive-speed nil)
+#+end_src
+
+** Righe numerate
+#+begin_src emacs-lisp
+  (setq display-line-numbers-type 'relative)
+#+end_src
+
+* Quality of life improvements
+Una serie di pacchetti che migliorano l'esperienza d'uso.
+** Which key
+Uno dei problemi più grandi di emacs è ricordare le scorciatoie da
+tastiera meno utilizzate o che hanno funzioni simili tra di loro.
+Aiuta anche nello scoprire nuove scorciatoie
+#+begin_src emacs-lisp
+  (which-key-mode 0)
+#+end_src
+
+** Auto completamento per M-x e comandi simili
+*** Consult
+Consult è un pacchetto che aggiunge l'auto-completamento a ~M-x~ e altri
+prompt, a differenze di Helm i risultati vengono mostrati tramite
+l'infrastruttura di autocompletamento built-in di emacs. Consult è anche più minimale
+rispetto ad Helm
+#+begin_src emacs-lisp
+  (use-package consult
+    :bind (("C-c M-x" . consult-mode-command)
+  	 ("C-c m" . consult-man)
+  	 ("C-c i" . consult-info)
+  	 ("C-x M-:" . consult-complex-command)     ;; orig. repeat-complex-command
+  	 ("C-x b" . consult-buffer)                ;; orig. switch-to-buffer
+  	 ("C-x 4 b" . consult-buffer-other-window) ;; orig. switch-to-buffer-other-window
+  	 ("C-x 5 b" . consult-buffer-other-frame)  ;; orig. switch-to-buffer-other-frame
+  	 ("C-x t b" . consult-buffer-other-tab)    ;; orig. switch-to-buffer-other-tab
+  	 ("C-x r b" . consult-bookmark)            ;; orig. bookmark-jump
+  	 ("C-x p b" . consult-project-buffer)      ;; orig. project-switch-to-buffer
+  	 ("M-g e" . consult-compile-error)
+  	 ("M-g f" . consult-flymake)               ;; Alternative: consult-flycheck
+  	 ("M-g g" . consult-goto-line)             ;; orig. goto-line
+  	 ("M-g M-g" . consult-goto-line)           ;; orig. goto-line
+  	 ("M-g o" . consult-outline)               ;; Alternative: consult-org-heading
+  	 ("M-g m" . consult-mark)
+  	 ("M-g k" . consult-global-mark)
+  	 ("M-g i" . consult-imenu)
+  	 ("M-g I" . consult-imenu-multi)
+  	 ("M-s l" . consult-line))
+    :init
+    (setq xref-show-xrefs-function #'consult-xref
+  	xref-show-definitions-function #'consult-xref))
+
+#+end_src
+*** Vertico
+#+begin_src emacs-lisp
+  (use-package vertico)
+  (vertico-mode 1)
+#+end_src
+*** Marginalia
+#+begin_src emacs-lisp
+  (use-package marginalia
+  ;; Bind `marginalia-cycle' locally in the minibuffer.  To make the binding
+  ;; available in the *Completions* buffer, add it to the
+  ;; `completion-list-mode-map'.
+  :bind (:map minibuffer-local-map
+         ("M-A" . marginalia-cycle))
+  :init
+  (marginalia-mode))
+#+end_src
+*** Orderless
+#+begin_src emacs-lisp
+  (use-package orderless
+    :ensure t
+    :custom
+    (completion-styles '(orderless basic))
+    (completion-category-overrides '((file (styles basic partial-completion)))))
+#+end_src
+*** Embark
+#+begin_src emacs-lisp
+  (use-package embark
+    :bind
+    (("C-." . embark-act)         ;; pick some comfortable binding
+     ("C-;" . embark-dwim)        ;; good alternative: M-.
+     ("C-h B" . embark-bindings)) ;; alternative for `describe-bindings'
+
+    :init
+    ;; Optionally replace the key help with a completing-read interface
+    (setq prefix-help-command #'embark-prefix-help-command)
+
+    ;; Show the Embark target at point via Eldoc. You may adjust the
+    ;; Eldoc strategy, if you want to see the documentation from
+    ;; multiple providers. Beware that using this can be a little
+    ;; jarring since the message shown in the minibuffer can be more
+    ;; than one line, causing the modeline to move up and down:
+
+    ;; (add-hook 'eldoc-documentation-functions #'embark-eldoc-first-target)
+    ;; (setq eldoc-documentation-strategy #'eldoc-documentation-compose-eagerly)
+
+    ;; Add Embark to the mouse context menu. Also enable `context-menu-mode'.
+    ;; (context-menu-mode 1)
+    ;; (add-hook 'context-menu-functions #'embark-context-menu 100)
+
+    :config
+    ;; Hide the mode line of the Embark live/completions buffers
+    (add-to-list 'display-buffer-alist
+                 '("\\`\\*Embark Collect \\(Live\\|Completions\\)\\*"
+                   nil
+                   (window-parameters (mode-line-format . none)))))
+
+  ;; Consult users will also want the embark-consult package.
+  (use-package embark-consult
+    :ensure t ; only need to install it, embark loads it after consult if found
+    :hook
+    (embark-collect-mode . consult-preview-at-point-mode))
+#+end_src
+
+* PKM
+Emacs è un ottimo *Personal Knoledge Management System* grazie ad org e
+alle sue estensioni
+** Org
+Major-mode per prendere note, basata su ~outline-mode~, fa anche da project
+management system e da agenda.
+#+begin_src emacs-lisp
+    (use-package org
+      :hook
+      (org-mode . org-indent-mode)
+      :config
+      (setq org-startup-indented t
+            org-pretty-entities t
+            org-hide-emphasis-markers t
+            org-startup-with-inline-images t
+            org-image-actual-width '(300))
+      (add-to-list 'org-modules 'org-habit t)
+      (plist-put org-format-latex-options :scale 1.2))
+    (setq org-export-backends '(beamer md latex html man ascii))
+    (use-package olivetti)
+#+end_src
+
+*** Controllo grammaticale e sintattico
+#+begin_src emacs-lisp
+  (use-package jinx
+    :hook
+    (org-mode . jinx-mode)
+    :config
+    (setq jinx-languages "it_IT en_US"))
+#+end_src
+** Habit traker
+#+begin_src emacs-lisp
+  (use-package org-habit-stats)
+#+end_src
+
+** Org-Roam
+Org-Roam è un sistema per gestire i link tra file org, ed in generale
+per implementare il metodo CODE.
+#+begin_src emacs-lisp
+  (use-package org-roam
+    :init (setq org-roam-v2-ack t)
+    :custom
+    (org-roam-directory "~/Documenti/PKB")
+    (org-roam-node-display-template
+     (concat "${title:*} "
+             (propertize "${tags:20}" 'face 'org-tag)))
+    (org-roam-capture-templates
+     '(("d" "Generale" plain
+        "%?"
+        :if-new (file+head "${slug}.org" "#+title: ${title}\n#+filetags:\n#+startup: inlineimages")
+        :unnarrowed t)
+       ("b" "Blog Article" plain
+        (file "~/Modelli/blog_articl.org")
+        :if-new (file+head "blog/articles/blog_${slug}.org" "#+title: ${title}\n\n#+date: %Y-%m-%d %H:%M#+filetags: :Articolo:")
+        :unnarrowed t)
+       ("p" "Progetto" plain
+        "%?"
+        :if-new (file+head "${slug}.org" "#+title: ${title}\n#+filetags: :Progetti:\n")
+        :unnarrowed t)))
+    :bind(("C-c n l" . org-roam-buffer-toggle)
+          ("C-c n t" . org-roam-tag-add)
+          ("C-c n f" . org-roam-node-find)
+          ("C-c n i" . org-roam-node-insert))
+    :config
+    (org-roam-setup))
+#+end_src
+
+*** Org-roam-ui
+#+begin_src emacs-lisp
+  (use-package org-roam-ui)
+  (setq org-roam-ui-follow nil)
+#+end_src
+
+*** Org dailies
+#+begin_src lisp :tangle no
+  (setq org-roam-dailies-directory "daily/")
+  (setq org-roam-dailies-capture-templates
+      '(("d" "default" entry
+         "* %?"
+         :target (file+datetree "journal.org.gpg" week))))
+#+end_src
+
+** Org Agenda
+Forse il cuore della Org-Mode, qui sono definite una serie di parole-chiave
+utilizzate per identificare i task.
+#+begin_src emacs-lisp
+  (keymap-global-set "C-c a" 'org-agenda)
+  (setq org-agenda-start-on-weekday 1)
+  (setq calendar-day-name-array ["Domenica" "Lunedì" "Martedì" "Mercoledì"
+                                 "Giovedì" "Venerdì" "Sabato"]
+        calendar-month-name-array ["Gennaio" "Febbraio" "Marzo" "Aprile"
+  				 "Maggio" "Giugno" "Luglio" "Agosto"
+  				 "Settembre" "Ottobre" "Novembre"
+  				 "Dicembre"])
+  (add-hook 'calendar-load-hook
+            (lambda ()
+              (calendar-set-date-style 'european)))
+#+end_src
+
+*** Integrazione con Org-Roam
+#+begin_src emacs-lisp
+  (require 'org-roam)
+  (defun roam-agenda-projects ()
+      "Ritorna una lista di coppie (titolo . file) di tutte le note in org-roam con il tag Progetti"
+      (org-roam-db-query [:select [nodes:title nodes:file] :from nodes :inner-join
+    			      tags :where (and  (= nodes:id tags:node_id) (like tags:tag '"%Progetti%") )]))
+  (defun roam-agenda-areas ()
+    "Ritorna una lista di coppie (titolo . file) di tutte le note in org-roam con il tag Area"
+    (org-roam-db-query [:select [nodes:title nodes:file] :from nodes :inner-join
+  					   tags :where (and (= nodes:id tags:node_id) (like tags:tag '"%Area%"))]))
+  (defun roam-agenda-projects-paths ()
+    "Crea una lista di tutti i file segnati come progetto"
+    (mapcar #'cadr (roam-agenda-projects)))
+
+  (defun roam-agenda-areas-paths ()
+    "Crea una lista di tutti i file area"
+    (mapcar #'cadr (roam-agenda-areas)))
+
+  (defun roam-agenda-update ()
+    (interactive)
+    (if (derived-mode-p 'org-mode)
+        (setq org-agenda-files (append (roam-agenda-projects-paths) (roam-agenda-areas-paths)))))
+
+  (defun insert-with-linefeed (str)
+    "inserisce nel buffer corrente aggiungendo un linefeed alla fine"
+    (insert (concat str "\n")))
+
+  (defun roam-agenda-save-projects-paths ()
+    "Salva il percorso tutti i file segnati come progetto"
+    (interactive)
+    (with-temp-file "~/.config/emacs/projects-paths.txt"
+      (mapcar #'insert-with-linefeed (roam-agenda-projects-paths))))
+
+  (roam-agenda-update)
+
+  (setq org-agenda-files (roam-agenda-projects-paths))
+  (add-hook 'after-save-hook 'roam-agenda-update)
+  (add-hook 'after-save-hook 'roam-agenda-save-projects-paths)
+
+  (defun roam-agenda-suspend ()
+    "Setta il progetto come sospeso, cambiando il tag :Progetti: in :Sospeso:. Se chiamata
+     con C-u ha  il comportamento inverso"
+    (interactive)
+    (goto-char (point-min))
+    (if current-prefix-arg
+        ;; then
+        (while (search-forward ":Sospeso:" nil t 1) (replace-match ":Progetti:"))
+        ;; else
+      (while (search-forward ":Progetti:" nil t 1) (replace-match ":Sospeso:"))))
+
+  (defun roam-agenda-complete ()
+    "Setta il progetto come completato, cambianod il tag :Progetti: in :Completato:. Se chiamata
+     con C-u ha il comportamento inverso"
+    (interactive)
+    (goto-char (point-min))
+    (if current-prefix-arg
+        ;; then
+        (while (search-forward ":Completato" nil t 1) (replace-match ":Progetti:"))
+      ;; else
+      (while (search-forward ":Progetti:" nil t 1) (replace-match ":Completato:"))))
+#+end_src
+
+*** Todo Keywords personalizzate
+#+begin_src emacs-lisp
+  (setq org-todo-keywords
+        '((sequence "TODO(t)" "NEXT(n)" "WIP(w)" "WAIT(W)" "|" "DONE(d)" "CANC(k)")
+          (sequence "NOTE(N)" "WIP(w)"            "|" "DONE(d)" "CANC(k)")
+  	(sequence "REVIEW(r)"                   "|" "DONE(d)")
+  	(sequence "BUY(b)"                      "|" "DONE(d)")
+          (sequence "LEGGERE(l)" "LEGGENDO(R)"       "|" "LETTO(l)")))
+#+end_src
+
+*** Agende personalizzate
+Qui sono definite una serie di query, utilizzabili in ~org-agenda~ per visualizzare lo stato
+di progetti e degli impegni definiti all'interno dei file in ~org-agenda-files~.
+#+begin_src emacs-lisp
+  (setq org-agenda-custom-commands
+        '(("G" "Vista mensile"
+           ((agenda "" ((org-agenda-span 'month)))))
+  	("W" "Vista settimanale"
+           ((agenda "" ((org-agenda-span 'week)))))
+  	("D" "Oggi"
+  	 ((agenda "" ((org-agenda-span 'day)))
+  	  (todo "NEXT")))
+  	("N" "Appunti da scrivere e rivedere"
+  	 ((todo "NOTE")))
+  	("F" "Prossima azione"
+  	 ((todo "NEXT")))))
+#+end_src
+
+** Org-publish
+#+begin_src emacs-lisp
+  (setq org-publish-project-alist
+        '(("blog_articles"
+  	 :base-directory "~/Documenti/PKB/blog/articles"
+  	 :base-extension "org"
+  	 :publishing-directory "~/Progetti/Air4x.github.io/articles"
+  	 :recursive f
+  	 :publishing-function org-html-publish-to-html
+  	 :headline-levels 4
+  	 :auto-preamble t)
+  	("blog_images"
+  	 :base-directory "~/Documenti/PKB/blog/articles/images"
+  	 :base-extension "css\\|png\\|jpg\\|gif"
+  	 :publishing-directory "~/Progetti/Air4x.github.io/images"
+  	 :recursive f
+  	 :publishing-function org-publish-attachment
+  	 :headline-levels 4
+  	 :auto-preamble t)
+  	("blog_root_pages"
+  	 :base-directory "~/Documenti/PKB/blog/"
+  	 :base-extension "org"
+  	 :publishing-directory "~/Progetti/Air4x.github.io/"
+  	 :recursive f
+  	 :publishing-function org-html-publish-to-html
+  	 :headline-levels 4
+  	 :auto-preamble t)
+  	("org" :components ("blog_articles" "blog_images" "blog_root_pages"))))
+
+#+end_src
+
+** Gestione contatti
+#+begin_src emacs-lisp
+  (use-package org-contacts
+    :custom (org-contacts-files '("~/Documenti/PKB/contatti.org")))
+#+end_src
+
+** Org-Babel
+Org-babel è la parte di Org che si occupa della gestione dei blocchi di
+codice, e contiene le funzioni fondamentali per il *literate programming*
+*** Ob-Raku
+Questo pacchetto aggiunge il supporto per Raku a org-babel
+#+begin_src emacs-lisp
+  (use-package ob-raku)
+#+end_src
+*** OB-nim
+#+begin_src emacs-lisp
+  (use-package ob-nim)
+#+end_src
+
+*** Org-plot
+#+begin_src emacs-lisp
+  (use-package gnuplot)
+#+end_src
+
+*** Adding languages support to Org-babel
+In org-babel per poter utilizzare i diversi linguaggi (eseguire i blocchi di codici
+contrassegnati dall'identificativo del linguaggio stesso) questi devono essere
+attivati.
+#+begin_src emacs-lisp
+      (org-babel-do-load-languages
+         'org-babel-load-languages
+         '((R . nil)
+           (emacs-lisp . t)
+           (raku . t)
+           (perl . t)
+           (gnuplot . t)
+           (python . t)
+           (clojure . t)
+           (latex . t)
+           (java . t)
+           (scheme . t)
+           (lisp . t)
+           (C . t)
+           (shell . t)
+           (dot . t)
+           (plantuml . t)
+  	 (nim . t)))
+#+end_src
+
+** Org mode customization
+Come tutte le cose in emacs, anche org può essere
+personalizzato per essere più dolce agli occhi
+*** Org-bullets
+Sostituisce gli (*) con caratteri unicode, nascondendo gli asterischi
+che precedono.
+#+begin_src emacs-lisp
+  (use-package org-bullets
+    :hook (org-mode . org-bullets-mode))
+#+end_src
+*** Org-appear
+Nasconde i caratteri di markup quando non sono in prossimità
+del cursore.
+#+begin_src emacs-lisp
+  (use-package org-appear
+    :hook (org-mode . org-appear-mode))
+#+end_src
+
+** htmlize
+#+begin_src emacs-lisp
+  (use-package htmlize)
+#+end_src
+
+** Pdf-tools
+Migliora il lettore pdf presente in emacs, aggiungendo il supporto
+alle annotazioni. Particolarmente utilie quando si prendono appunti
+#+begin_src emacs-lisp
+  (use-package pdf-tools
+    :mode ("\\.pdf\\'" . pdf-view-mode))
+  (pdf-tools-install)
+#+end_src
+
+** Presentazioni
+Permette di utilizzare emacs come engine per una presentazione, utilizzando
+un file org per le slide. Funziona utilizzando le funzionalità di narrowing e
+widening built-in di emacs. Ogni titolo è una slide.
+#+begin_src emacs-lisp
+    (use-package org-tree-slide
+      :defer t)
+#+end_src
+
+* Emulatore di terminale
+#+begin_src emacs-lisp
+    (use-package eat
+      :commands eat)
+#+end_src
+
+* Programmazione
+Questa sezione si occupa di tutto ciò che riguarda lo sviluppo, come la configurazione
+della Major-mode per i singoli linguaggi, la gestione di strumenti come LSP, snippets,
+autocompletamento e così via.
+** Impostazioni globali
+#+begin_src emacs-lisp
+  (add-hook 'prog-mode-hook 'display-line-numbers-mode)
+#+end_src
+
+** LSP
+Dalla versione 29+ emacs comprende un client per LSP chiamato eglot.
+Eglot è stato sviluppato con un focus sulla facilità di utilizzo, le
+prestazioni e l'integrazione con le funzionalità built-in.
+
+** Snippets
+#+begin_src emacs-lisp
+  (use-package yasnippet)
+  (yas-global-mode 1)
+  (use-package yasnippet-snippets)
+#+end_src
+** Perl
+#+begin_src emacs-lisp
+  (add-to-list 'major-mode-remap-alist '(perl-mode . cperl-mode))
+  (setq cperl-invalid-face nil)
+#+end_src
+** LISP
+*** ParEdit
+#+begin_src emacs-lisp
+  (use-package paredit
+    :hook
+    ((scheme-mode . paredit-mode)
+     (lisp-mode . paredit-mode)))
+#+end_src
+*** Raibow Delimeters
+#+begin_src emacs-lisp
+  (use-package rainbow-delimiters
+    :hook ((scheme-mode . rainbow-delimiters-mode)
+  	 (lisp-mode . rainbow-delimiters-mode)))
+#+end_src
+*** Guile
+#+begin_src emacs-lisp
+  (use-package geiser-guile
+    :hook (scheme-mode . geiser-mode))
+#+end_src
+** Auto-completamento
+*** Corfu
+#+begin_src emacs-lisp
+  (use-package corfu
+    :custom
+    (corfu-cycle t)
+    :bind
+    (:map corfu-map ("SPC" . corfu-insert-separator))
+    :init
+    (global-corfu-mode)
+    (corfu-popupinfo-mode))
+
+#+end_src
+*** Cape
+#+begin_src emacs-lisp
+  (use-package cape
+    :bind ("C-c p" . cape-prefix-map)
+    :init
+    (add-hook 'completion-at-point-functions #'cape-dabbrev)
+    (add-hook 'completion-at-point-functions #'cape-file))
+
+    
+#+end_src
+
+** Projects management
+*** Magit
+IL client per git
+#+begin_src emacs-lisp
+  (use-package transient)
+  (use-package magit
+    :commands magit)
+#+end_src
+
+** Calc
+#+begin_src emacs-lisp
+  (setq math-additional-units
+        '((bit    nil           "Bit")
+          (byte   "8 * bit"     "Byte")
+          (bps    "bit / s"     "Bit per second"))
+          math-units-table nil)
+
+#+end_src
+
+* Comunicazione
+** IRC
+Configurazione per il client IRC built-in: ERC
+*** Impostazioni generali
+| Nickname | Nome Reale |
+| Air4x    | Mario C    |
+
+#+begin_src emacs-lisp
+  (setq
+   erc-nick "Air4x"
+   erc-user-full-name "Mario C")
+#+end_src
+
+*** Libera.chat
+Impostazioni per [[https:https://libera.chat/][libera.chat]]
+| server             | porta |
+| irc.eu.libera.chat | 6697  |
+
+#+begin_src emacs-lisp
+  (defun my/libera-chat ()
+    (interactive)
+    (erc-tls :server "irc.eu.libera.chat"
+         :port "6697"))
+#+end_src
+** RSS feed
+#+begin_src emacs-lisp
+  (setq newsticker-url-list '(("100R" "https://100r.co/links/rss.xml")
+  			    ("Paged Out!" "https://pagedout.institute/atom.xml")))
+#+end_src
+* Varie
+Codice vario che:
+- disattiva i backup per evitare di sporcare il filesystem
+
+#+begin_src emacs-lisp
+  (setq make-backup-files nil)
+  (setq auto-save-default nil)
+  (setq auto-save-file-name-transforms '((".*" "~/.cache/emacs/auto-save/" t)))
+  (setq lock-file-name-transforms '((".*" "~/.cache/emacs/auto-save/" t)))
+  (setq backup-directory-alist '((".*" . "~/.cache/emacs/auto-save/")))
+
+  (setq org-format-latex-options (plist-put org-format-latex-options :scale 1.5))
+#+end_src
+
+** Definire Zen come browser esterno
+#+begin_src emacs-lisp
+  (defvar browse-url-zen-program "zen-browser")
+  (defvar browse-url-zen-arguments 'nil)
+  (defvar browse-url-zen-new-window-is-tab t)
+
+  (defun browse-url-zen (url &optional new-window)
+    "Ask the Zen WWW browser to load URL.
+  Defaults to the URL around or before point.  Passes the strings
+  in the variable `browse-url-zen-arguments' to Zen.
+
+  Interactively, if the variable `browse-url-new-window-flag' is non-nil,
+  loads the document in a new Zen window.  A non-nil prefix argument
+  reverses the effect of `browse-url-new-window-flag'.
+
+  If `browse-url-zen-new-window-is-tab' is non-nil, then
+  whenever a document would otherwise be loaded in a new window, it
+  is loaded in a new tab in an existing window instead.
+
+  Non-interactively, this uses the optional second argument NEW-WINDOW
+  instead of `browse-url-new-window-flag'."
+    (interactive (browse-url-interactive-arg "URL: "))
+    (setq url (browse-url-encode-url url))
+    (let* ((process-environment (browse-url-process-environment)))
+      (apply #'start-process
+             (concat "zen-browser " url) nil
+             browse-url-zen-program
+             (append
+              browse-url-zen-arguments
+              (if (browse-url-maybe-new-window new-window)
+  		(if browse-url-zen-new-window-is-tab
+  		    '("--new-tab")
+  		  '("--new-window")))
+              (list url)))))
+
+  (function-put 'browse-url-zen 'browse-url-browser-kind 'external)
+  (setq browse-url-firefox-program "zen-browser")
+  (setq browse-url-browser-function #'browse-url-firefox)
+#+end_src
+
+* Impostazioni garbage collection
+#+begin_src emacs-lisp
+  (setq gc-cons-threshold (* 2 1000 1000))
+#+end_src
+
