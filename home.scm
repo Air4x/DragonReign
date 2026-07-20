@@ -94,8 +94,14 @@
     "waybar"
     "zen-browser-bin"))
 
+
+(define desktop-tower
+  '("eww"))
+
 (define desktop-portable
-  '("swayidle"))
+  '("swayidle"
+    "waybar"
+    "swaylock"))
 
 (define music
   '("mpd"
