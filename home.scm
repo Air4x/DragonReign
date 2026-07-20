@@ -349,4 +349,87 @@
      (service home-syncthing-service-type)
      (service home-mpd-service-type)
      (service home-emacs-service-type)
-     (service home-pipewire-service-type))))))
+     (service home-pipewire-service-type)))))
+ ;; ;; ;; ;; Trishula (laptop Tuxedo)
+ ((string= (gethostname) "trishula")
+  (home-environment
+   (packages (map specification->package
+		  (append misc
+			  fonts
+			  clis
+			  raku
+			  desktop
+			  desktop-common
+			  desktop-extra
+			  desktop-portable
+			  latex
+			  emacs-core
+			  music
+			  IM
+			  lisp-dev
+			  guile)))
+   (services
+    (list
+     (service home-bash-service-type
+	      (home-bash-configuration
+	       (guix-defaults? #t)
+	       (environment-variables '(("QT_QPA_PLATFORM" . "wayland")
+					("PATH" . "$PATH:/home/mario/.local/bin/")
+					("XDG_CURRENT_DESKTOP" . "sway")))
+	       (bashrc (list (local-file "bash/conf")))
+	       (aliases '(("ls" . "eza")
+			  ("la" . "eza -a")
+			  ("ll" . "eza -al")
+			  ("emc" . "emacsclient -nw")
+			  ("wifi" . "nmcli d w")
+			  ("connect" . "nmcli d w c")
+			  ("spegni" . "shutdown now")))
+	       (bash-profile (list (local-file "bash/profile.conf")))))
+     (service home-files-service-type
+	      `((".config/sway/config" ,(local-file "sway/trishula.config"))
+		(".config/emacs/Air4x.org" ,(local-file "emacs/trishula.org"))
+		(".config/mpd/mpd.conf" ,(local-file "mpd/mpd.conf"))
+		(".config/dunst/dunstrc" ,(local-file "dunst/dunstrc"))
+		(".config/waybar/config.jsonc" ,(local-file "waybar/trishula.jsonc"))
+		(".config/waybar/style.css" ,(local-file "waybar/trishula.css"))
+		(".config/alacritty/alacritty.toml" ,(local-file "alacritty/alacritty.toml"))
+		("Immagini/wallpaper.jpg" ,(local-file "Trishula.jpg"))
+		("Modelli/blog_article.org" ,(local-file "templates/blog_article.org"))
+		;; recursive is set to true to mantain file permission
+		(".local/bin/orgzly-ignore" ,(local-file "scripts/orgzly-ignore" #:recursive? #t))
+		(".local/bin/note-capture-image" ,(local-file "scripts/note-capture-image" #:recursive? #t))
+		(".local/bin/wifi_menu" ,(local-file "scripts/wifi_menu" #:recursive? #t))
+		(".local/bin/yt-url" ,(local-file "scripts/yt-url" #:recursive? #t))))
+     (simple-service 'variant-packages-service
+		     home-channels-service-type
+		     (list
+		      (channel
+		       (name 'nonguix)
+		       (url "https://gitlab.com/nonguix/nonguix")
+		       ;; Enable signature verification:
+		       (introduction
+			(make-channel-introduction
+			 "897c1a470da759236cc11798f4e0a5f7d4d59fbc"
+			 (openpgp-fingerprint
+			  "2A39 3FFF 68F4 EF7A 3D29  12AF 6F51 20A0 22FB B2D5"))))
+		      (channel
+		       (name 'clocktower)
+		       (url "https://codeberg.org/TohsakaTypeclass/clocktower")
+		       (branch "master")
+		       (introduction
+			(make-channel-introduction
+			 "9fb086fa9ee955c7daf755a5b114eedc030de99d"
+			 (openpgp-fingerprint
+			  "4B1E F810 76ED 1A25 D15C CB18 4572 A777 FF18 DBCC"))))  
+		      (channel
+		       (name 'boot-sector-launch)
+		       (url "https://github.com/Air4x/boot-sector-launch.git")
+		       (branch "master")
+		       (introduction
+			(make-channel-introduction
+  			 "fb5c7f05324ec8228ea4e3ed3f0af7eda38a535d"
+			 (openpgp-fingerprint
+			  "F2FEFE669117674C003D55609BDFFC914D670025"))))))
+     (service home-syncthing-service-type)
+     (service home-mpd-service-type)
+     (service home-emacs-service-type))))))
