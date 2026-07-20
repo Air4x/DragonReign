@@ -367,8 +367,8 @@
 			  IM
 			  lisp-dev
 			  guile
-			  "nss-certs"
-			  "fontconfig")))
+			  '("nss-certs")
+			  '("fontconfig"))))
    (services
     (list
      (service home-bash-service-type
