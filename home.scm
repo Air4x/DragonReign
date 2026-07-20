@@ -366,7 +366,9 @@
 			  music
 			  IM
 			  lisp-dev
-			  guile)))
+			  guile
+			  "nss-certs"
+			  "fontconfig")))
    (services
     (list
      (service home-bash-service-type
