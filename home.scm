@@ -389,7 +389,7 @@
      (service home-files-service-type
 	      `((".config/sway/config" ,(local-file "sway/trishula.config"))
 		(".config/emacs/Air4x.org" ,(local-file "emacs/trishula.org"))
-		(".config/mpd/mpd.conf" ,(local-file "mpd/mpd.conf"))
+		(".config/mpd/mpd.conf" ,(local-file "mpd/trishula.conf"))
 		(".config/dunst/dunstrc" ,(local-file "dunst/dunstrc"))
 		(".config/waybar/config.jsonc" ,(local-file "waybar/trishula.jsonc"))
 		(".config/waybar/style.css" ,(local-file "waybar/trishula.css"))
