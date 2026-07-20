@@ -357,7 +357,7 @@
 			  fonts
 			  clis
 			  raku
-			  desktop
+			  sway-core
 			  desktop-common
 			  desktop-extra
 			  desktop-portable
