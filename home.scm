@@ -249,7 +249,8 @@
 		      home-emacs-service)))
    (description "Emacs as a daemon to use with emacsclient")))
 
-(cond 
+(cond
+ ;; ;; ;; Stardust (Tower PC)
  ((string= (gethostname) "stardust")
   (home-environment
    (packages (map specification->package (append fonts
@@ -293,12 +294,10 @@
 			  ("connect" . "nmcli d w c")))
 	       (bash-profile (list (local-file "bash/profile.conf")))))
      (service home-files-service-type
-	      `((".config/sway/config" ,(local-file "sway/config"))
+	      `((".config/sway/config" ,(local-file "sway/stardust.config"))
 		(".config/emacs/Air4x.org" ,(local-file "emacs/Air4x.org"))
 		(".config/mpd/mpd.conf" ,(local-file "mpd/mpd.conf"))
 		(".config/dunst/dunstrc" ,(local-file "dunst/dunstrc"))
-		(".config/waybar/config.jsonc" ,(local-file "waybar/config.jsonc"))
-		(".config/waybar/style.css" ,(local-file "waybar/style.css"))
 		(".config/alacritty/alacritty.toml" ,(local-file "alacritty/alacritty.toml"))
 		("Immagini/wallpaper.jpg" ,(local-file "ultimate-blue-eyes.jpg"))
 		("Modelli/blog_article.org" ,(local-file "templates/blog_article.org"))
