@@ -301,7 +301,7 @@ per implementare il metodo CODE.
   (use-package org-roam
     :init (setq org-roam-v2-ack t)
     :custom
-    (org-roam-directory "~/Documenti/PKB")
+    (org-roam-directory "~/Documents/PKB")
     (org-roam-node-display-template
      (concat "${title:*} "
              (propertize "${tags:20}" 'face 'org-tag)))
