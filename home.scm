@@ -364,7 +364,7 @@
 			  latex
 			  emacs-core
 			  music
-			  IM
+;;			  IM
 			  lisp-dev
 			  guile
 			  '("nss-certs")
