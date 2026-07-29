@@ -376,6 +376,7 @@
 	       (guix-defaults? #t)
 	       (environment-variables '(("QT_QPA_PLATFORM" . "wayland")
 					("PATH" . "$PATH:/home/mario/.local/bin/")
+					("PATH" . "/home/mario/.guix-profile/bin/:$PATH")
 					("XDG_CURRENT_DESKTOP" . "sway")))
 	       (bashrc (list (local-file "bash/conf")))
 	       (aliases '(("ls" . "eza")
