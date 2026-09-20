@@ -80,6 +80,7 @@ leggibilità la preferisco completamente opaca.
 ** Ligatures
 #+begin_src emacs-lisp
   (use-package ligature
+    :ensure nil
     :config
     ;; Enable all FiraCode  ligatures in programming modes
     (ligature-set-ligatures t    '(("=" (rx (+ (or ">" "<" "|" "/" "~" ":" "!" "="))))
