@@ -394,7 +394,7 @@ utilizzate per identificare i task.
     (with-temp-file "~/.config/emacs/projects-paths.txt"
       (mapcar #'insert-with-linefeed (roam-agenda-projects-paths))))
 
-  (setq org-agenda-files (append (roam-agenda-projects-paths) (roam-agenda-areas-path)) 
+  (setq org-agenda-files (append (roam-agenda-projects-paths) (roam-agenda-areas-paths)))
   (add-hook 'after-save-hook 'roam-agenda-update)
   (add-hook 'after-save-hook 'roam-agenda-save-projects-paths)
 
