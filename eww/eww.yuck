@@ -35,7 +35,13 @@
 	 "./mpd-duration.pl")
 
 (deflisten ws
+	   :initial "[{\"name\":\"1\",\"focus\":true},{\"name\":\"2\",\"focus\":false},{\"name\":\"3\",\"focus\":false},{\"focus\":false,\"name\":\"4\"},{\"name\":\"5\",\"focus\":false},{\"focus\":false,\"name\":\"6\"},{\"name\":\"7\",\"focus\":false},{\"focus\":false,\"name\":\"8\"},{\"name\":\"9\",\"focus\":false},{\"name\":\"10\",\"focus\":false}]"
 	   "./workspace.pl")
+
+
+(defpoll nalug-status
+	 :interval "600s"
+	 "./nalug-status.sh")
 
 (defwidget clock []
 	   (box
@@ -269,7 +275,7 @@
 	    :space-evenly true
 	    :icon-size 30))
 
-(defwindow tray ;;1111,262 314x31
+(defwindow tray 
 	   :monitor 0
 	   :geometry (geometry :x "1111px" 
 			       :y "262px"
@@ -280,3 +286,46 @@
 	   :exclusive false
 	   :focusable "ondemand"
 	   (tray))
+
+
+(defwidget nalug-website []
+	   (box
+	    :orientation "h"
+	    :class "nalug_website"
+	    :space-evenly true
+	    (label :class "nalug_website_label" :text {nalug-status.website})))
+
+(defwidget nalug-nextcloud []
+	   (box
+	    :orientation "h"
+	    :class "nalug_website"
+	    :space-evenly true
+	    (label :class "nalug_website_label" :text {nalug-status.nextcloud})))
+
+(defwidget nalug-fluxer []
+	   (box
+	    :orientation "h"
+	    :class "nalug_website"
+	    :space-evenly true
+	    (label :class "nalug_website_label" :text {nalug-status.fluxer})))
+
+(defwidget nalug []
+	   (box
+	    :orientation "h"
+	    :class "nalug"
+	    :space-evenl true
+	    (nalug-website)
+	    (nalug-fluxer)
+	    (nalug-nextcloud)))
+
+(defwindow nalug
+	   :monitor 0
+	   :geometry (geometry :x "1176px"
+			       :y "159px"
+			       :width "177px"
+			       :heigth "32px"
+			       :anchor "top left")
+	   :stacking "bg"
+	   :exclusive false
+	   :focusable "none"
+	   (nalug))
