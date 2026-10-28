@@ -570,6 +570,22 @@ widening built-in di emacs. Ogni titolo è una slide.
       :defer t)
 #+end_src
 
+** GPTel
+#+begin_src emacs-lisp
+  (use-package gptel
+    :ensure f
+    :config
+    (setq
+     gptel-model   'test
+     gptel-backend (gptel-make-openai "llama-cpp"
+  				    :stream t
+  				    :protocol "http"
+  				    :host "127.0.0.1:35600"
+  				    :key "stardust"
+  				    :models '(test))))  ;Any names, doesn't matter for Llama
+    
+#+end_src
+
 * Emulatore di terminale
 #+begin_src emacs-lisp
     (use-package eat
