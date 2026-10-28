@@ -642,17 +642,13 @@ prestazioni e l'integrazione con le funzionalità built-in.
     :hook (scheme-mode . geiser-mode))
 #+end_src
 *** Common Lisp
-Dopo aver provato sly, ho riscontrato una forte tendenza a bloccare emacs nel caso
-si utilizzassero comandi che interagivano con sly velocemente uno dopo l'altro.
-Di conseguenza ho deciso di provare SLIME e sperare in performance migliori.
-#+begin_src emacs-lisp
-  (use-package slime
-    :commands slime
+Dopo aver provato SLY sul portatile, sono passato a SLIME per
+questioni di performance. Ma ora che ho un PC fisso voglio riprovare ad
+usare SLY, dato che presenta alcune features molto interessanti
+#+begin_src emacs-lisp :tangle no
+  (use-package sly
     :config
-    (setq inferior-lisp-program "sbcl")
-    (add-to-list 'slime-contribs 'slime-asdf)
-    (add-to-list 'slime-contribs 'slime-repl)
-    (add-to-list 'slime-contribs 'slime-autodoc))
+    (setq inferior-lisp-program "sbcl"))
 #+end_src
 ** Graphviz
 #+begin_src emacs-lisp
@@ -729,6 +725,16 @@ IL client per git
           (bps    "bit / s"     "Bit per second"))
           math-units-table nil)
 
+#+end_src
+
+** Environment management with direnv
+Per simulare alcune delle features di un ambiente virtuale per python
+anche per altri linguaggi (CommonLisp, Zig, etc) uso una combinazione
+di direnv e guix shell. Per rendere Emacs cosciente di questi ambienti utilizzo
+~envrc.el~ di Steve Purcell (sotto consiglio di un paio di persone su Mastodon)
+#+begin_src emacs-lisp
+  (use-package envrc
+    :hook (after-init . envrc-global-mode))
 #+end_src
 
 * Creazione documenti
