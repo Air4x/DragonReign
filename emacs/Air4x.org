@@ -716,6 +716,12 @@ IL client per git
   (use-package magit
     :commands magit)
 #+end_src
+**** AGit workflow extension
+#+begin_src emacs-lisp
+  (use-package agitjo
+    :config
+    (agitjo-setup "#"))
+#+end_src
 
 ** Calc
 #+begin_src emacs-lisp
