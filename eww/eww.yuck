@@ -1,6 +1,6 @@
 (defpoll network
 	 :interval "10s"
-	 "./inet.sh")
+	 "/home/mario/.config/eww/inet.sh")
 
 (defpoll time
 	 :interval "30s"
@@ -16,7 +16,7 @@
 
 (defpoll cpu
 	 :interval "10s"
-	 "./cpu-average.pl")
+	 "/home/mario/.config/eww/cpu-average.pl")
 
 (defpoll meteo
 	 :interval "600s"
@@ -24,7 +24,7 @@
 
 (defpoll mpd-image
 	 :interval "30s"
-	 "./mpd-get-image.pl")
+	 "/home/mario/.config/eww/mpd-get-image.pl")
 
 (defpoll mpd-title
 	 :interval "30s"
@@ -32,16 +32,16 @@
 
 (defpoll mpd-duration
 	 :interval "1s"
-	 "./mpd-duration.pl")
+	 "/home/mario/.config/eww/mpd-duration.pl")
 
 (deflisten ws
 	   :initial "[{\"name\":\"1\",\"focus\":true},{\"name\":\"2\",\"focus\":false},{\"name\":\"3\",\"focus\":false},{\"focus\":false,\"name\":\"4\"},{\"name\":\"5\",\"focus\":false},{\"focus\":false,\"name\":\"6\"},{\"name\":\"7\",\"focus\":false},{\"focus\":false,\"name\":\"8\"},{\"name\":\"9\",\"focus\":false},{\"name\":\"10\",\"focus\":false}]"
-	   "./workspace.pl")
+	   "/home/mario/.config/eww/workspace.pl")
 
 
 (defpoll nalug-status
 	 :interval "600s"
-	 "./nalug-status.sh")
+	 "/home/mario/.config/eww/nalug-status.sh")
 
 (defwidget clock []
 	   (box
