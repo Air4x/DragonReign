@@ -58,7 +58,7 @@
     "font-google-noto"
     "font-google-noto-serif-cjk"
     "font-google-noto-sans-cjk"
-    "fontconfigs"))
+    "fontconfig"))
 
 (define clis
   '("htop"
