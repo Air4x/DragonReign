@@ -194,6 +194,15 @@
 (define raku-dev
   '("emacs-raku-mode"))
 
+(define latex
+  '("texlive-latex-bin"
+    "texlive-dvipng-bin"
+    "texlive-scheme-basic"
+    "texlive-collection-luatex"
+    "texlive-collection-langitalian"
+    "texlive-collection-fontsextra"
+    "texlive-collection-fontsrecommended"))
+
 (define latex-dev
   '("emacs-auctex"))
 
@@ -418,6 +427,7 @@
 						  zig
 						  raku
 						  raku-dev
+						  latex
 						  latex-dev
 						  perl
 						  lisp-dev
@@ -524,9 +534,8 @@
       (service home-kdeconnect-service-type)
       (service home-dunst-service-type)
       (service home-eww-open-windows-service-type)))
-    (transformation
-     (options->transformation '((tune . "x86-64-v4"))
-			      #:warn? #f))))
+   ;; (transformation (options->transformation '((tune . "x86-64-v4")) #:warn? #f))
+    ))
  ;; ;; ;; Trishula (laptop Tuxedo)
  ((string= (gethostname) "trishula")
   (home-environment
@@ -538,6 +547,7 @@
 		    desktop-extra
 		    desktop-portable
 		    emacs-core
+		    latex
 		    fonts
 		    games
 		    guile
