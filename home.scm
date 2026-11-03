@@ -56,7 +56,8 @@
     "font-google-noto-emoji"
     "font-google-noto"
     "font-google-noto-serif-cjk"
-    "font-google-noto-sans-cjk"))
+    "font-google-noto-sans-cjk"
+    "fontconfigs"))
 
 (define clis
   '("htop"
@@ -82,7 +83,8 @@
     "unzip"
     "7zip"
     "gzip"
-    "recutils"))
+    "recutils"
+    "github-cli"))
 
 (define IM
   '("icedove-wayland"
@@ -219,9 +221,6 @@
     "libretro-bsnes-jg"
     "libretro-bsnes-hd"))
 
-(define development
-  '("github-cli"))
-
 (define flatpak-core
   '("flatpak"
     "flatpak-xdg-utils"))
@@ -230,7 +229,8 @@
   '("qtwayland"
     "egl-wayland"
     "gparted"
-    "node"))
+    "node"
+    "nss-certs"))
 
 (define games
   '("prismlauncher"
@@ -254,8 +254,6 @@
 		      home-mpd-service)))
    (description "Mpd deamon")))
 
-
-
 ;; emacs server
 (define (home-emacs-service config)
   (list (shepherd-service
@@ -274,7 +272,6 @@
 		      home-shepherd-service-type
 		      home-emacs-service)))
    (description "Emacs as a daemon to use with emacsclient")))
-
 
 ;; Kdeconnect service
 (define (home-kdeconnect-service config)
@@ -339,7 +336,6 @@
 			args))))
 	  (stop #~(make-kill-destructor)))))
 
-
 (define home-eww-service-type
   (service-type
     (name 'eww)
@@ -394,7 +390,6 @@
 		       args)))
 	  (stop #~(make-kill-destructor)))))
 
-
 (define home-dunst-service-type
   (service-type
     (name 'dunst)
@@ -428,7 +423,6 @@
 						  cl
 						  guile
 						  emulators
-						  development
 						  flatpak-core
 						  misc
 						  multimedia-editing
@@ -532,25 +526,25 @@
     (transformation
      (options->transformation '((tune . "x86-64-v4"))
 			      #:warn? #f))))
- ;; ;; ;; ;; Trishula (laptop Tuxedo)
+ ;; ;; ;; Trishula (laptop Tuxedo)
  ((string= (gethostname) "trishula")
   (home-environment
     (packages (map specification->package
-		   (append misc
-			   fonts
-			   clis
-			   raku
-			   sway-core
-			   desktop-common
-			   desktop-extra
-			   desktop-portable
-			   emacs-core
-			   music
-			   IM
-			   lisp-dev
-			   guile
-			   '("nss-certs")
-			   '("fontconfig"))))
+		   (append
+		    IM
+		    clis
+		    desktop-common
+		    desktop-extra
+		    desktop-portable
+		    emacs-core
+		    fonts
+		    games
+		    guile
+		    lisp-dev
+		    music
+		    raku
+		    sway-core
+		    misc)))
     (services
      (list
       (service home-bash-service-type
