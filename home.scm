@@ -201,7 +201,8 @@
     "texlive-collection-luatex"
     "texlive-collection-langitalian"
     "texlive-collection-fontsextra"
-    "texlive-collection-fontsrecommended"))
+    "texlive-collection-fontsrecommended"
+    "texlive-tabularray"))
 
 (define latex-dev
   '("emacs-auctex"))
