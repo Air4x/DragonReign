@@ -122,7 +122,7 @@
 (define desktop-extra
   '("xdg-desktop-portal"
     "xdg-desktop-portal-wlr"
-    "zen-browser-bin"
+    "librewolf"
     "qbittorrent"))
 
 
@@ -445,7 +445,9 @@
 		 (guix-defaults? #t)
 		 (environment-variables '(("QT_QPA_PLATFORM" . "wayland")
 					  ("PATH" . "$PATH:/home/mario/.local/bin/")
-					  ("XDG_CURRENT_DESKTOP" . "sway")))
+					  ("XDG_CURRENT_DESKTOP" . "sway")
+					  ("GDK_BACKEND" . "wayland")
+					  ("MOZ_ENABLE_WAYLAND" . "1")))
 		 (bashrc (list (local-file "bash/conf")))
 		 (aliases '(("ls" . "eza")
 			    ("la" . "eza -a")
