@@ -103,7 +103,7 @@
     "swaybg"
     "rofi"
     "xkeyboard-config"
-    "alacritty"
+    "foot"
     "starship"))
 
 (define desktop-common
@@ -462,7 +462,7 @@
 		 (".config/emacs/Air4x.org" ,(local-file "emacs/Air4x.org"))
 		 (".config/mpd/mpd.conf" ,(local-file "mpd/mpd.conf"))
 		 (".config/dunst/dunstrc" ,(local-file "dunst/dunstrc"))
-		 (".config/alacritty/alacritty.toml" ,(local-file "alacritty/alacritty.toml"))
+		 (".config/foot/foot.ini" ,(local-file "foot/stardust.config"))
 		 ("Immagini/wallpaper.jpg" ,(local-file "yusei_stardust.jpg"))
 		 ("Modelli/blog_article.org" ,(local-file "templates/blog_article.org"))
 		 ;; recursive is set to true to mantain file permission
@@ -537,7 +537,8 @@
       (service home-kdeconnect-service-type)
       (service home-dunst-service-type)
       (service home-eww-open-windows-service-type)))
-   ;; (transformation (options->transformation '((tune . "x86-64-v4")) #:warn? #f))
+    (transformation (options->transformation
+		     '((tune . "x86-64-v4")) #:warn? #f))
     ))
  ;; ;; ;; Trishula (laptop Tuxedo)
  ((string= (gethostname) "trishula")
@@ -584,7 +585,7 @@
 		 (".config/dunst/dunstrc" ,(local-file "dunst/dunstrc"))
 		 (".config/waybar/config.jsonc" ,(local-file "waybar/trishula.jsonc"))
 		 (".config/waybar/style.css" ,(local-file "waybar/trishula.css"))
-		 (".config/alacritty/alacritty.toml" ,(local-file "alacritty/alacritty.toml"))
+		 (".config/foot/foot.ini" ,(local-file "foot/stardust.config"))
 		 ("Immagini/wallpaper.jpg" ,(local-file "Trishula.jpg"))
 		 ("Modelli/blog_article.org" ,(local-file "templates/blog_article.org"))
 		 ;; recursive is set to true to mantain file permission
