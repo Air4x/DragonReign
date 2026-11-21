@@ -471,6 +471,7 @@
 		 (".local/bin/note-capture-image" ,(local-file "scripts/note-capture-image" #:recursive? #t))
 		 (".local/bin/wifi_menu" ,(local-file "scripts/wifi_menu" #:recursive? #t))
 		 (".local/bin/yt-url" ,(local-file "scripts/yt-url" #:recursive? #t))
+		 (".local/bin/screen-menu.sh" ,(local-file "scripts/screen-menu.sh" #:recursive? #t))
 		 (".config/eww/cpu-average.pl" ,(local-file "eww/cpu-average.pl"#:recursive? #t))
 		 (".config/eww/inet.sh" ,(local-file "eww/inet.sh" #:recursive? #t))
 		 (".config/eww/meteo.pl" ,(local-file "eww/meteo.pl" #:recursive? #t))
@@ -594,53 +595,54 @@
 		 (".local/bin/note-capture-image" ,(local-file "scripts/note-capture-image" #:recursive? #t))
 		 (".local/bin/wifi_menu" ,(local-file "scripts/wifi_menu" #:recursive? #t))
 		 (".local/bin/yt-url" ,(local-file "scripts/yt-url" #:recursive? #t))))
+		 (".local/bin/screen-menu.sh" ,(local-file "scripts/screen-menu.sh" #:recursive? #t))      
       (simple-service 'variant-packages-service
 		      home-channels-service-type
 		      (list
 		       (channel
-			 (name 'nonguix)
-			 (url "https://gitlab.com/nonguix/nonguix")
-			 ;; Enable signature verification:
-			 (introduction
-			  (make-channel-introduction
-			   "897c1a470da759236cc11798f4e0a5f7d4d59fbc"
-			   (openpgp-fingerprint
-			    "2A39 3FFF 68F4 EF7A 3D29  12AF 6F51 20A0 22FB B2D5"))))
+			(name 'nonguix)
+			(url "https://gitlab.com/nonguix/nonguix")
+			;; Enable signature verification:
+			(introduction
+			 (make-channel-introduction
+			  "897c1a470da759236cc11798f4e0a5f7d4d59fbc"
+			  (openpgp-fingerprint
+			   "2A39 3FFF 68F4 EF7A 3D29  12AF 6F51 20A0 22FB B2D5"))))
 		       (channel
-			 (name 'clocktower)
-			 (url "https://codeberg.org/TohsakaTypeclass/clocktower")
-			 (branch "master")
-			 (introduction
-			  (make-channel-introduction
-			   "9fb086fa9ee955c7daf755a5b114eedc030de99d"
-			   (openpgp-fingerprint
-			    "4B1E F810 76ED 1A25 D15C CB18 4572 A777 FF18 DBCC"))))  
+			(name 'clocktower)
+			(url "https://codeberg.org/TohsakaTypeclass/clocktower")
+			(branch "master")
+			(introduction
+			 (make-channel-introduction
+			  "9fb086fa9ee955c7daf755a5b114eedc030de99d"
+			  (openpgp-fingerprint
+			   "4B1E F810 76ED 1A25 D15C CB18 4572 A777 FF18 DBCC"))))  
 		       (channel
-			 (name 'boot-sector-launch)
-			 (url "https://github.com/Air4x/boot-sector-launch.git")
-			 (branch "master")
-			 (introduction
-			  (make-channel-introduction
-  			   "fb5c7f05324ec8228ea4e3ed3f0af7eda38a535d"
-			   (openpgp-fingerprint
-			    "F2FEFE669117674C003D55609BDFFC914D670025"))))
+			(name 'boot-sector-launch)
+			(url "https://github.com/Air4x/boot-sector-launch.git")
+			(branch "master")
+			(introduction
+			 (make-channel-introduction
+  			  "fb5c7f05324ec8228ea4e3ed3f0af7eda38a535d"
+			  (openpgp-fingerprint
+			   "F2FEFE669117674C003D55609BDFFC914D670025"))))
 		       (channel
-			 (name 'panther)
-			 (url "https://codeberg.org/gofranz/panther")
-			 (branch "master")
-			 (introduction
-			  (make-channel-introduction
-			   "54b4056ac571611892c743b65f4c47dc298c49da"
-			   (openpgp-fingerprint "A36A D41E ECC7 A871 1003  5D24 524F EB1A 9D33 C9CB"))))
+			(name 'panther)
+			(url "https://codeberg.org/gofranz/panther")
+			(branch "master")
+			(introduction
+			 (make-channel-introduction
+			  "54b4056ac571611892c743b65f4c47dc298c49da"
+			  (openpgp-fingerprint "A36A D41E ECC7 A871 1003  5D24 524F EB1A 9D33 C9CB"))))
 		       (channel
-			 (name 'guix-gaming-games)
-			 (url "https://gitlab.com/guix-gaming-channels/games.git")
-			 ;; Enable signature verification:
-			 (introduction
-			  (make-channel-introduction
-			   "c23d64f1b8cc086659f8781b27ab6c7314c5cca5"
-			   (openpgp-fingerprint
-			    "50F3 3E2E 5B0C 3D90 0424  ABE8 9BDC F497 A4BB CC7F"))))))
+			(name 'guix-gaming-games)
+			(url "https://gitlab.com/guix-gaming-channels/games.git")
+			;; Enable signature verification:
+			(introduction
+			 (make-channel-introduction
+			  "c23d64f1b8cc086659f8781b27ab6c7314c5cca5"
+			  (openpgp-fingerprint
+			   "50F3 3E2E 5B0C 3D90 0424  ABE8 9BDC F497 A4BB CC7F"))))))
       (service home-syncthing-service-type)
       (service home-mpd-service-type)
       (service home-wayland-service-type 360)
