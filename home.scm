@@ -594,8 +594,8 @@
 		 (".local/bin/orgzly-ignore" ,(local-file "scripts/orgzly-ignore" #:recursive? #t))
 		 (".local/bin/note-capture-image" ,(local-file "scripts/note-capture-image" #:recursive? #t))
 		 (".local/bin/wifi_menu" ,(local-file "scripts/wifi_menu" #:recursive? #t))
-		 (".local/bin/yt-url" ,(local-file "scripts/yt-url" #:recursive? #t))))
-		 (".local/bin/screen-menu.sh" ,(local-file "scripts/screen-menu.sh" #:recursive? #t))      
+		 (".local/bin/yt-url" ,(local-file "scripts/yt-url" #:recursive? #t))
+		 (".local/bin/screen-menu.sh" ,(local-file "scripts/screen-menu.sh" #:recursive? #t))))
       (simple-service 'variant-packages-service
 		      home-channels-service-type
 		      (list
