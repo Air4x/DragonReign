@@ -421,7 +421,7 @@
 						  sway-core
 						  desktop-common
 						  desktop-extra
-						  desktop-portable
+						  desktop-tower
 						  music
 						  emacs-core
 						  emacs-extra
