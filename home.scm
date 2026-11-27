@@ -104,7 +104,8 @@
     "rofi"
     "xkeyboard-config"
     "foot"
-    "starship"))
+    "starship"
+    "bibata-cursor-theme"))
 
 (define desktop-common
   '("cliphist"

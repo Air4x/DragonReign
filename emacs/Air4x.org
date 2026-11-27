@@ -365,14 +365,17 @@ utilizzate per identificare i task.
 *** Integrazione con Org-Roam
 #+begin_src emacs-lisp
   (require 'org-roam)
+
   (defun roam-agenda-projects ()
-      "Ritorna una lista di coppie (titolo . file) di tutte le note in org-roam con il tag Progetti"
-      (org-roam-db-query [:select [nodes:title nodes:file] :from nodes :inner-join
+    "Ritorna una lista di coppie (titolo . file) di tutte le note in org-roam con il tag Progetti"
+    (org-roam-db-query [:select [nodes:title nodes:file] :from nodes :inner-join
     			      tags :where (and  (= nodes:id tags:node_id) (like tags:tag '"%Progetti%") )]))
+
   (defun roam-agenda-areas ()
     "Ritorna una lista di coppie (titolo . file) di tutte le note in org-roam con il tag Area"
     (org-roam-db-query [:select [nodes:title nodes:file] :from nodes :inner-join
-  					   tags :where (and (= nodes:id tags:node_id) (like tags:tag '"%Area%"))]))
+  			      tags :where (and (= nodes:id tags:node_id) (like tags:tag '"%Area%"))]))
+
   (defun roam-agenda-projects-paths ()
     "Crea una lista di tutti i file segnati come progetto"
     (mapcar #'cadr (roam-agenda-projects)))
@@ -408,7 +411,7 @@ utilizzate per identificare i task.
     (if current-prefix-arg
         ;; then
         (while (search-forward ":Sospeso:" nil t 1) (replace-match ":Progetti:"))
-        ;; else
+      ;; else
       (while (search-forward ":Progetti:" nil t 1) (replace-match ":Sospeso:"))))
 
   (defun roam-agenda-complete ()
@@ -818,43 +821,9 @@ Codice vario che:
   (setq org-format-latex-options (plist-put org-format-latex-options :scale 1.5))
 #+end_src
 
-** Definire Zen come browser esterno
+** Definire Librewolf come browser esterno
 #+begin_src emacs-lisp
-  (defvar browse-url-zen-program "zen-browser")
-  (defvar browse-url-zen-arguments 'nil)
-  (defvar browse-url-zen-new-window-is-tab t)
-
-  (defun browse-url-zen (url &optional new-window)
-    "Ask the Zen WWW browser to load URL.
-  Defaults to the URL around or before point.  Passes the strings
-  in the variable `browse-url-zen-arguments' to Zen.
-
-  Interactively, if the variable `browse-url-new-window-flag' is non-nil,
-  loads the document in a new Zen window.  A non-nil prefix argument
-  reverses the effect of `browse-url-new-window-flag'.
-
-  If `browse-url-zen-new-window-is-tab' is non-nil, then
-  whenever a document would otherwise be loaded in a new window, it
-  is loaded in a new tab in an existing window instead.
-
-  Non-interactively, this uses the optional second argument NEW-WINDOW
-  instead of `browse-url-new-window-flag'."
-    (interactive (browse-url-interactive-arg "URL: "))
-    (setq url (browse-url-encode-url url))
-    (let* ((process-environment (browse-url-process-environment)))
-      (apply #'start-process
-             (concat "zen-browser " url) nil
-             browse-url-zen-program
-             (append
-              browse-url-zen-arguments
-              (if (browse-url-maybe-new-window new-window)
-  		(if browse-url-zen-new-window-is-tab
-  		    '("--new-tab")
-  		  '("--new-window")))
-              (list url)))))
-
-  (function-put 'browse-url-zen 'browse-url-browser-kind 'external)
-  (setq browse-url-firefox-program "zen-browser")
+  (setq browse-url-firefox-program "librewolf")
   (setq browse-url-browser-function #'browse-url-firefox)
 #+end_src
 
